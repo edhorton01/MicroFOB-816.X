@@ -49,7 +49,7 @@ uint8_t TX_Address[6];
 uint8_t RX_Address[6];
 uint8_t e2_buf[16];
 
-uint8_t Device_ID[5];
+uint8_t Device_ID[10];
 uint8_t active_channel;
 uint8_t active_device;
 uint8_t get_resp;
@@ -77,11 +77,11 @@ int main(void)
     active_device = 0;
     function._flags = 0;
     
-    Device_ID[0] = (SIGROW.SERNUM0 & 0x7f);
-    Device_ID[1] = SIGROW.SERNUM1;
-    Device_ID[2] = SIGROW.SERNUM2;
-    Device_ID[3] = SIGROW.SERNUM3;
-    Device_ID[4] = SIGROW.SERNUM4;
+    Device_ID[0] = (SIGROW.SERNUM5 & 0x7f);
+    Device_ID[1] = SIGROW.SERNUM6;
+    Device_ID[2] = SIGROW.SERNUM7;
+    Device_ID[3] = SIGROW.SERNUM8;
+    Device_ID[4] = SIGROW.SERNUM9;
     
     TCA0_ClearOverflowInterruptFlag();
     TCA0_EnableInterrupt();
@@ -105,9 +105,8 @@ int main(void)
     remotes[1] = SI241_ReadRxAddress(0x20);    
     sei();
     
-    tx_pipe = 0;
-    SI241_SetupTx();
     tx_pipe = 1;
+    SI241_SetupTx();
     
     asm ("nop");
     asm ("nop");
@@ -157,6 +156,15 @@ int main(void)
                     asm ("nop");
                     asm ("nop");
                     asm ("nop");
+                    if(si24_on_timer != 0)
+                    {
+                        si24_on_timer--;
+                        if(si24_on_timer == 0)
+                        {
+                            Si24_Status = 0;
+                            SI241_PwrOff();
+                        }
+                    }                                            
                 }
             }
             
@@ -190,7 +198,8 @@ int main(void)
                     asm ("nop");
                     asm ("nop");
                     asm ("nop");                                
-                    
+                    IntStatus._tc0 = 1;
+                    si24_on_timer = 500;
                 }
                 else
                 {

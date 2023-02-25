@@ -95,6 +95,15 @@ void SI241_PwrOff(void)
 void SI241_SetupTx(void)
 {
     uint8_t work;
+    
+    if(Si24_Status == 0x40)
+    {
+        SI241_PwrOff();
+        asm ("nop");
+        asm ("nop");
+        asm ("nop");       
+    }
+  
     SI241_PwrOn();
     if(tx_pipe == 0)
     {
