@@ -12,10 +12,17 @@ extern uint8_t go_tx;
 extern uint8_t tx_pipe;
 extern uint8_t get_resp;
 extern uint8_t active_device;
+
+extern uint8_t front_cmd;
+extern uint8_t rear_cmd;
+extern uint8_t ga_cmd;
+extern uint8_t dim_cmd;
+extern uint8_t work_cmd;
+
 extern ButtonState function;
 extern Multiple dev_ctl;
 
-uint8_t mask;
+uint16_t mask;
 
 void ServiceKeyPressInt(void)
 {
@@ -106,11 +113,14 @@ void ServiceCmd(void)
         KeyStatus._scan_st = 0;        
         tx_pipe = 1;
         dev_ctl._both_devices = 0;
+        shifter = 0;
+
         switch (Key._cmd)
         {
             case 0x3e:
             {
                 shifter = TOP_M;
+                function._dimhold = 0;                
                 if(dev_ctl._last_both_active)
                 {
                     dev_ctl._both_devices = 0x01;
@@ -126,7 +136,7 @@ void ServiceCmd(void)
                     {
                         active_device = 0x0;                        
                     }
-                }
+                }               
                 go_tx = 1; 
                 break;
             }
@@ -134,26 +144,88 @@ void ServiceCmd(void)
             case 0x3d:
             {
                 shifter = REAR_M;
-                active_device = 0x0; 
+                function._dimhold = 0;                
+#ifdef KAYAK_REM                
+                active_device = 0;
                 dev_ctl._last_both_active = 0x0;
                 dev_ctl._last_used = 0x0;
+#elif NORMAL_REM
+                if(dev_ctl._last_both_active)
+                {
+                    dev_ctl._both_devices = 0x01;
+                    active_device = 0;                                   
+                }
+                else
+                {
+                    if(dev_ctl._last_used)
+                    {
+                        active_device = 0x80; 
+                    }
+                    else
+                    {
+                        active_device = 0x0;                        
+                    }
+                }               
+#endif    
                 go_tx = 1; 
                 break;
             }
 
             case 0x3b:
             {
-                shifter = SOS_M;
-                go_tx = 1; 
+                shifter = DIM_M;
+                go_tx = 1;
+#ifdef NORMAL_REM
+                if(dev_ctl._last_both_active)
+                {
+                    dev_ctl._both_devices = 0x01;
+                    active_device = 0;                                   
+                }
+                else
+                {
+                    if(dev_ctl._last_used)
+                    {
+                        active_device = 0x80; 
+                    }
+                    else
+                    {
+                        active_device = 0x0;                        
+                    }
+                }               
+#endif                    
                 break;
             }
 
             case 0x37:
             {
                 shifter = GA_M;
+#ifdef KAYAK_REM                
                 dev_ctl._both_devices = 0x01;
                 dev_ctl._last_both_active = 0x01;
-                active_device = 0;                
+                active_device = 0;
+                function._front = 0;
+                function._rear = 0;
+                function._top = 0;
+                function._dimhold = 0;
+                                
+#elif NORMAL_REM
+                if(dev_ctl._last_both_active)
+                {
+                    dev_ctl._both_devices = 0x01;
+                    active_device = 0;                                   
+                }
+                else
+                {
+                    if(dev_ctl._last_used)
+                    {
+                        active_device = 0x80; 
+                    }
+                    else
+                    {
+                        active_device = 0x0;                        
+                    }
+                }                               
+#endif                
                 go_tx = 1; 
                 break;
             }
@@ -161,16 +233,52 @@ void ServiceCmd(void)
             case 0x2f:
             {
                 shifter = WORK_M;
-                go_tx = 1; 
+                if(dev_ctl._last_both_active)
+                {
+                    dev_ctl._both_devices = 0x01;
+                    active_device = 0;                                   
+                }
+                else
+                {
+                    if(dev_ctl._last_used)
+                    {
+                        active_device = 0x80; 
+                    }
+                    else
+                    {
+                        active_device = 0x0;                        
+                    }
+                }               
+                go_tx = 1;                 
                 break;
             }
 
             case 0x1f:
             {
                 shifter = FRONT_M;
+                function._dimhold = 0;                
+#ifdef KAYAK_REM                
                 active_device = 0x80;
                 dev_ctl._last_both_active = 0x0;
                 dev_ctl._last_used = 0x1;
+#elif NORMAL_REM
+                if(dev_ctl._last_both_active)
+                {
+                    dev_ctl._both_devices = 0x01;
+                    active_device = 0;                                   
+                }
+                else
+                {
+                    if(dev_ctl._last_used)
+                    {
+                        active_device = 0x80; 
+                    }
+                    else
+                    {
+                        active_device = 0x0;                        
+                    }
+                }               
+#endif                
                 go_tx = 1; 
                 break;
             }                        
@@ -180,10 +288,12 @@ void ServiceCmd(void)
         {
             dev_ctl._invert = 0;
             mask = (0x01 << shifter);
-            if(shifter != SOS_M)
+#ifdef KAYAK_REM            
+            if(shifter != DIM_M)
             {
                 function._flags = function._flags ^ mask;                
             }
+         
             if(function._flags & mask)
             {
                 function._state = 1;
@@ -224,19 +334,168 @@ void ServiceCmd(void)
                     }
                 }
             }
+#elif NORMAL_REM
+            if(shifter == FRONT_M)
+            {
+                if(!(function._flags & mask))                   
+                {
+                    function._flags = function._flags | mask;
+                    front_cmd = 0;
+                    function._state = 1;
+                }
+                else
+                {
+                    front_cmd++;
+                    if(front_cmd > 2)
+                    {
+                        function._flags = function._flags ^ mask;
+                        function._state = 0;
+                        function._dimhold = 0;
+                    }
+                    else
+                    {
+                        function._state = 1;
+                        Key._cmd = Key._cmd + front_cmd;
+                        function._dimhold = 0;
+                    }
+                }
+            }
+            else if(shifter == REAR_M)
+            {
+                if(!(function._flags & mask))                   
+                {
+                    function._flags = function._flags | mask;
+                    rear_cmd = 0;
+                    function._state = 1;
+                }
+                else
+                {
+                    rear_cmd++;
+                    if(rear_cmd > 2)
+                    {
+                        function._flags = function._flags ^ mask;
+                        function._state = 0;
+                        function._dimhold = 0;
+                    }
+                    else
+                    {
+                        function._state = 1;
+                        Key._cmd = (Key._cmd & 0xf4) + rear_cmd;
+                        function._dimhold = 0;
+                    }
+                }
+            }            
+            else if(shifter == DIM_M)
+            {
+                if(!(function._flags & mask))                   
+                {
+                    function._flags = function._flags | mask;
+                    dim_cmd = 0;
+                    function._state = 1;
+                }
+                else
+                {
+                    dim_cmd++;
+                    if(dim_cmd >= 3)
+                    {
+                        function._flags = function._flags ^ mask;
+                        function._state = 0;
+                    }
+                    else
+                    {
+                        if(dim_cmd == 1)
+                        {
+                            Key._cmd = 0xac;
+                        }
+                        else if(dim_cmd == 2)
+                        {
+                            Key._cmd = 0xad;
+                        }
+                    }
+                }
+            }                        
+            else if(shifter == GA_M)
+            {
+                rear_cmd = 0;
+                front_cmd = 0;
+                function._work = 0;
+                function._front = 0;
+                function._rear = 0;
+                if(!(function._flags & mask))                   
+                {
+                    function._flags = function._flags | mask;
+                    ga_cmd = 0;
+                    function._state = 1;
+                }
+                else
+                {
+                    ga_cmd++;
+                    if(ga_cmd > 1)
+                    {
+                        function._flags = function._flags ^ mask;
+                        function._state = 0;
+                        function._dimhold = 0;
+                    }
+                    else
+                    {
+                        function._state = 1;
+                        Key._cmd = Key._cmd + ga_cmd;
+                        function._dimhold = 0;
+                    }
+                }
+            }                        
+            else if(shifter == WORK_M)
+            {
+                rear_cmd = 0;
+                front_cmd = 0;
+                ga_cmd = 0;
+                function._front = 0;
+                function._rear = 0;
+                function._ga = 0;
+                function._flags = function._flags ^ mask;
+                function._dimhold = 0;
+                if(function._flags & mask)
+                {
+                    function._state = 1;                
+                }
+                else
+                {
+                     function._state = 0;                     
+                }
+            }  
+            else if(shifter == TOP_M)
+            {  
+                function._flags = function._flags ^ mask;
+                if(function._flags & mask)
+                {
+                    function._state = 1;                
+                }
+                else
+                {
+                     function._state = 0;                     
+                }
+            }
+#endif               
         }
     }
+    
     else if(KeyStatus._hold_req && !KeyStatus._hold_ack)
     {
         KeyStatus._hold_ack = 1;
-        switch (Key._cmd)
+        shifter = 0;
+        asm ("nop");
+        asm ("nop");
+        asm ("nop");
+        tx_pipe = 1;
+        get_resp = 0;
+        
+        switch (Key._bounce)
         {
             case 0x3b:
             {
-                shifter = SOS_M;
+                Key._cmd = 0x3b;
+                shifter = DIMHOLD_M;
                 go_tx = 1;
-                tx_pipe = 1;
-                get_resp = 0;
                 if(dev_ctl._last_both_active)
                 {
                     dev_ctl._both_devices = 0x01;
@@ -256,21 +515,58 @@ void ServiceCmd(void)
                 break;
             }
 
+            case 0x2f:
+            {
+                shifter = WORKHOLD_M;
+                go_tx = 1;
+#ifdef NORMAL_REM
+                if(dev_ctl._last_both_active)
+                {
+                    dev_ctl._both_devices = 0x01;
+                    active_device = 0;                                   
+                }
+                else
+                {
+                    if(dev_ctl._last_used)
+                    {
+                        active_device = 0x80; 
+                    }
+                    else
+                    {
+                        active_device = 0x0;                        
+                    }
+                }               
+#endif                    
+                break;
+            }
+                        
             case 0x3d:
             {
-//                active_device = 0x80;
-//                go_tx = 3;
-//                tx_pipe = 0;
-//                get_resp = 1;
+                shifter = REARHOLD_M;
+                dev_ctl._next_used = 0;
+                go_tx = 1;
+                Key._cmd = 0x37;
+                function._char[1] = function._char[1] & 0x7f;
+                dev_ctl._last_both_active = 0;
+                dev_ctl._both_devices = 0x01;
+                dev_ctl._update_used = 0x01;
+                function._rearhold = 0;
+                active_device = 0;                                   
                 break;
             }
 
             case 0x1f:
             {
-//               active_device = 0;
-//                go_tx = 3;
-//                tx_pipe = 0;
-//                get_resp = 1;
+                shifter = FRONTHOLD_M;
+                dev_ctl._next_used = 1;
+                go_tx = 1;
+                Key._cmd = 0x37;
+                function._char[1] = function._char[1] & 0x7f;
+                dev_ctl._last_both_active = 0;
+                dev_ctl._both_devices = 0x01;
+                dev_ctl._update_used = 0x01;
+                function._fronthold = 0;
+                active_device = 0;                                   
                 break;
             }
 
@@ -279,6 +575,10 @@ void ServiceCmd(void)
                 go_tx = 1;
                 tx_pipe = 0;
                 get_resp = 1;
+#ifdef NORMAL_REM
+                dev_ctl._last_both_active = 1;
+                dev_ctl._resend = 1;
+#endif                
                 break;
             }                        
         }
@@ -287,12 +587,36 @@ void ServiceCmd(void)
         asm ("nop");                
         if(go_tx)
         {
+            asm ("nop");
+            asm ("nop");
+            asm ("nop");                            
             dev_ctl._invert = 1;
             mask = (0x01 << shifter);
-            if(shifter == SOS_M)
+            if(shifter == DIMHOLD_M)
             {
-                function._flags = function._flags ^ mask;                
+                function._flags = function._flags ^ mask;
+                front_cmd = 0;
+                rear_cmd = 0;
             }
+            else if(shifter == WORKHOLD_M)
+            {
+                function._work = 1;
+                front_cmd = 0;
+                rear_cmd = 0;
+            }
+            else if(shifter == REARHOLD_M)
+            {
+                front_cmd = 0;
+                rear_cmd = 0;
+                dev_ctl._invert = 0;
+            }
+            else if(shifter == FRONTHOLD_M)
+            {
+                front_cmd = 0;
+                rear_cmd = 0;
+                dev_ctl._invert = 0;
+            }
+
             if(function._flags & mask)
             {
                 function._state = 1;

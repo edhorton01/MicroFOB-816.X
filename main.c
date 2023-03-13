@@ -52,6 +52,13 @@ uint8_t e2_buf[16];
 uint8_t Device_ID[10];
 uint8_t active_channel;
 uint8_t active_device;
+
+uint8_t front_cmd;
+uint8_t rear_cmd;
+uint8_t ga_cmd;
+uint8_t dim_cmd;
+uint8_t work_cmd;
+uint8_t last_command;
 uint8_t get_resp;
 uint8_t stat;
 
@@ -76,6 +83,9 @@ int main(void)
     active_channel = 0x40;
     active_device = 0;
     function._flags = 0;
+
+    front_cmd = 0;
+    rear_cmd = 0;
     
     Device_ID[0] = (SIGROW.SERNUM5 & 0x7f);
     Device_ID[1] = SIGROW.SERNUM6;
@@ -137,9 +147,23 @@ int main(void)
                         asm ("nop");
                         asm ("nop");
                         get_resp = 0;
-                        si24_on_timer = 500;            // set to 500 * 0.01 = 5 Seconds
+                        si24_on_timer = 200;            // set to 200 * 0.01 = 2 Seconds
                         SI241_SetupRxResp();
                         SI241_SetRxResp();
+                    }
+                    else if(!dev_ctl._both_devices && dev_ctl._update_used)
+                    {
+                        dev_ctl._update_used = 0;
+                        dev_ctl._last_used = 0;
+                        active_device = 0;
+                        if(dev_ctl._next_used)
+                        {
+                            active_device = 0x80;
+                            dev_ctl._last_used = 1;
+                        }
+                        Key._cmd = 0xc0;
+                        function._char[1] = function._char[1] | 0x80;
+                        dev_ctl._both_devices_go = 1;
                     }
                     else if(dev_ctl._both_devices)
                     {
@@ -208,8 +232,27 @@ int main(void)
                         si24_on_timer--;
                         if(si24_on_timer == 0)
                         {
-                            Si24_Status = 0;
-                            SI241_PwrOff();
+                            if(dev_ctl._resend)
+                            {
+                                SI241_PwrOff();                              
+                                dev_ctl._resend = 0;
+                                dev_ctl._last_both_active = 0x01;
+                                dev_ctl._both_devices = 0x01;
+                                active_device = 0;  
+                                dev_ctl._both_devices_go = 0x01;
+                                Key._cmd = 0xc0;
+                                function._char[1] = function._char[1] | 0x80;
+                                IntStatus._tc0 = 1;
+                                dev_ctl._invert = 0;
+                                tx_pipe = 1;
+                                function._ga = 0;
+                                function._gahold = 0;
+                            }
+                            else
+                            {
+                                Si24_Status = 0;
+                                SI241_PwrOff();
+                            }
                         }
                     }                        
 
@@ -231,11 +274,11 @@ int main(void)
                     si24_on_timer--;
                     if(si24_on_timer == 0)
                     {
-                        Si24_Status = 0;
                         SI241_PwrOff();
                     }
                 }
             }
+            
             if(!KeyStatus._scan_end)
             {
                 KeyStatus._interrupt = 0;
@@ -260,7 +303,7 @@ int main(void)
                 SI241_SetTx();
             }            
         }
-        else if((Si24_Status == 0) && !KeyStatus._pressed)
+        else if((Si24_Status == 0) && !KeyStatus._pressed && !KeyStatus._scan_st)
         {
             asm ("nop");
             asm ("nop");

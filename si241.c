@@ -24,6 +24,7 @@ extern micro_id remotes[2];
 extern uint8_t active_device;
 extern ButtonState function;
 extern Multiple dev_ctl;
+extern uint8_t last_command;
 
 extern volatile TmrDelay TimerD;
 extern volatile KEYstateControl Key;
@@ -90,6 +91,7 @@ void SI241_PwrOff(void)
     PA1_SetLow();
     PA2_SetLow();
     PA3_SetLow();
+    Si24_Status = 0;
 }
 
 void SI241_SetupTx(void)
@@ -122,7 +124,11 @@ void SI241_SetupTx(void)
         TX_Payload[0] = W_TX_PAYLOAD;
 //        TX_Payload[0] = W_TX_PAYLOAD_NOACK;
         
-        work = Key._cmd | (function._flags & 0x80);
+        work = Key._cmd | (function._char[1] & 0x80);
+        last_command = work;
+        asm ("nop");
+        asm ("nop");
+        asm ("nop");               
         if(dev_ctl._invert)
         {
             TX_Payload[1] = ~work;

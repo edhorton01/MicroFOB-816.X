@@ -1,6 +1,9 @@
 
 #include "mcc_generated_files/utils/compiler.h"
-    
+
+#define KAYAK_REM    0x01
+//#define NORMAL_REM  0x01
+
 typedef union {
     struct {
         uint8_t _flags;
@@ -58,16 +61,27 @@ typedef struct {
 
 typedef union {
     struct {
-        uint8_t _flags;
+        uint16_t _flags;
+    };
+    struct {
+        uint8_t _char[2];
     };
     struct {
         unsigned _front:1;
         unsigned _rear:1;
         unsigned _top:1;
-        unsigned _sos:1;
+        unsigned _dim:1;
+        unsigned _dimhold:1;
         unsigned _ga:1;
         unsigned _gahold:1;
         unsigned _work:1;
+        unsigned _workhold:1;
+        unsigned _fronthold:1;        
+        unsigned _rearhold:1;        
+        unsigned _spare3:1;        
+        unsigned _spare4:1;        
+        unsigned _spare5:1;        
+        unsigned _spare6:1;        
         unsigned _state:1;        
     };
 } ButtonState;
@@ -82,6 +96,9 @@ typedef union {
         unsigned _last_both_active:1;
         unsigned _last_used:1;
         unsigned _invert:1;         
+        unsigned _next_used:1;
+        unsigned _update_used:1;
+        unsigned _resend:1;        
     };
 } Multiple;
 
@@ -89,8 +106,12 @@ enum function_map {
     FRONT_M, 
     REAR_M, 
     TOP_M,
-    SOS_M,
+    DIM_M,
+    DIMHOLD_M,
     GA_M,
     GAHOLD_M,
-    WORK_M        
+    WORK_M,
+    WORKHOLD_M,
+    FRONTHOLD_M,
+    REARHOLD_M    
 };
