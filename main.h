@@ -1,12 +1,12 @@
 
 #include "mcc_generated_files/utils/compiler.h"
 
-#define KAYAK_REM    0x01
-//#define NORMAL_REM  0x01
+//#define KAYAK_REM    0x01
+#define NORMAL_REM  0x01
 
 typedef union {
     struct {
-        uint8_t _flags;
+        uint16_t _flags;
     };
     struct {
         unsigned _scan_st:1;
@@ -17,6 +17,8 @@ typedef union {
         unsigned _startCycle:1;
         unsigned _hold_req:1;
         unsigned _hold_ack:1;        
+        unsigned _hold_req2:1;
+        unsigned _hold_ack2:1;        
     };
 } KEYstateBITS;
 

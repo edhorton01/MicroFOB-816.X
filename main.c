@@ -61,6 +61,7 @@ uint8_t work_cmd;
 uint8_t last_command;
 uint8_t get_resp;
 uint8_t stat;
+uint8_t last_press;
 
 uint8_t rx_bc;
 uint8_t rssi;
@@ -289,7 +290,7 @@ int main(void)
                 ServiceKeyPress();
             }
         }
-        if(KeyStatus._new_cmd || dev_ctl._both_devices_go || (KeyStatus._hold_req && !KeyStatus._hold_ack))
+        if(KeyStatus._new_cmd || dev_ctl._both_devices_go || (KeyStatus._hold_req && !KeyStatus._hold_ack) || (KeyStatus._hold_req2 && !KeyStatus._hold_ack2))
         {
             ServiceCmd();
             if(go_tx || dev_ctl._both_devices_go)

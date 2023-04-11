@@ -4,7 +4,8 @@
 #include "mcc_generated_files/include/port.h"
 
 #define debounce 10
-#define hold_len 200 
+#define hold_len  150 
+#define hold_len2 100 
 
 extern volatile KEYstateBITS KeyStatus;
 extern volatile KEYstateControl Key;
@@ -18,6 +19,7 @@ extern uint8_t rear_cmd;
 extern uint8_t ga_cmd;
 extern uint8_t dim_cmd;
 extern uint8_t work_cmd;
+extern uint8_t last_press;
 
 extern ButtonState function;
 extern Multiple dev_ctl;
@@ -40,6 +42,8 @@ void ServiceKeyPressInt(void)
         Key._hold_cnt = 0;
         KeyStatus._hold_req = 0;
         KeyStatus._hold_ack = 0;
+        KeyStatus._hold_req2 = 0;
+        KeyStatus._hold_ack2 = 0;
         
         if(Key._kb == 0x3f)
         {
@@ -79,7 +83,7 @@ void ServiceKeyPress(void)
                 }
             }
         }
-        else if(KeyStatus._scan_end && !KeyStatus._scan_st && KeyStatus._pressed)
+        else if(KeyStatus._scan_end && !KeyStatus._scan_st && KeyStatus._pressed && !KeyStatus._hold_req)
         {
             if(Key._hold_cnt != 0)
             {
@@ -88,9 +92,25 @@ void ServiceKeyPress(void)
                 {
                     KeyStatus._hold_req = 1;
                     KeyStatus._hold_ack = 0;
+                    KeyStatus._hold_req2 = 0;
+                    KeyStatus._hold_ack2 = 0;
+                    Key._hold_cnt = hold_len2;
                 }
             }
         }
+        else if(KeyStatus._scan_end && !KeyStatus._scan_st && KeyStatus._pressed && KeyStatus._hold_req && !KeyStatus._hold_req2)
+        {
+            if(Key._hold_cnt != 0)
+            {
+                Key._hold_cnt--;
+                if(Key._hold_cnt == 0)
+                {
+                    KeyStatus._hold_req2 = 1;
+                    KeyStatus._hold_ack2 = 0;
+                }
+            }
+        }
+
     }
     else
     {
@@ -99,6 +119,8 @@ void ServiceKeyPress(void)
         Key._hold_cnt = 0;
         KeyStatus._hold_req = 0;
         KeyStatus._hold_ack = 0;
+        KeyStatus._hold_req2 = 0;
+        KeyStatus._hold_ack2 = 0;
     }
 }    
 
@@ -119,6 +141,7 @@ void ServiceCmd(void)
         {
             case 0x3e:
             {
+                last_press = Key._cmd;
                 shifter = TOP_M;
                 function._dimhold = 0;                
                 if(dev_ctl._last_both_active)
@@ -145,10 +168,19 @@ void ServiceCmd(void)
             {
                 shifter = REAR_M;
                 function._dimhold = 0;                
-#ifdef KAYAK_REM                
-                active_device = 0;
+#ifdef KAYAK_REM 
                 dev_ctl._last_both_active = 0x0;
                 dev_ctl._last_used = 0x0;
+                if((last_press == 0x3b) && (active_device == 0x80))
+                {
+                    active_device = 0;
+                }
+                else
+                {
+                    active_device = 0;
+                    go_tx = 1; 
+                }
+                last_press = Key._cmd;
 #elif NORMAL_REM
                 if(dev_ctl._last_both_active)
                 {
@@ -165,14 +197,15 @@ void ServiceCmd(void)
                     {
                         active_device = 0x0;                        
                     }
-                }               
-#endif    
+                }
                 go_tx = 1; 
+#endif    
                 break;
             }
 
             case 0x3b:
             {
+                last_press = Key._cmd;
                 shifter = DIM_M;
                 go_tx = 1;
 #ifdef NORMAL_REM
@@ -198,6 +231,7 @@ void ServiceCmd(void)
 
             case 0x37:
             {
+                last_press = Key._cmd;
                 shifter = GA_M;
 #ifdef KAYAK_REM                
                 dev_ctl._both_devices = 0x01;
@@ -232,6 +266,7 @@ void ServiceCmd(void)
 
             case 0x2f:
             {
+                last_press = Key._cmd;
                 shifter = WORK_M;
                 if(dev_ctl._last_both_active)
                 {
@@ -258,9 +293,18 @@ void ServiceCmd(void)
                 shifter = FRONT_M;
                 function._dimhold = 0;                
 #ifdef KAYAK_REM                
-                active_device = 0x80;
                 dev_ctl._last_both_active = 0x0;
                 dev_ctl._last_used = 0x1;
+                if((last_press == 0x3b) && (active_device == 0))
+                {
+                    active_device = 0x80;
+                }
+                else
+                {
+                    active_device = 0x80;
+                    go_tx = 1; 
+                }
+                last_press = Key._cmd;
 #elif NORMAL_REM
                 if(dev_ctl._last_both_active)
                 {
@@ -278,8 +322,8 @@ void ServiceCmd(void)
                         active_device = 0x0;                        
                     }
                 }               
-#endif                
                 go_tx = 1; 
+#endif                
                 break;
             }                        
         }
@@ -539,7 +583,8 @@ void ServiceCmd(void)
 #endif                    
                 break;
             }
-                        
+            
+#ifdef NORMAL_REM                        
             case 0x3d:
             {
                 shifter = REARHOLD_M;
@@ -569,12 +614,16 @@ void ServiceCmd(void)
                 active_device = 0;                                   
                 break;
             }
-
+#endif
             case 0x37:
             {
+                shifter = GAHOLD_M;
+                dev_ctl._last_both_active = 0x01;
+                dev_ctl._both_devices = 0x01;
+                active_device = 0;
+                function._ga = 1;
                 go_tx = 1;
-                tx_pipe = 0;
-                get_resp = 1;
+
 #ifdef NORMAL_REM
                 dev_ctl._last_both_active = 1;
                 dev_ctl._resend = 1;
@@ -627,4 +676,39 @@ void ServiceCmd(void)
             }
         }
     }
+    
+    else if(KeyStatus._hold_req2 && !KeyStatus._hold_ack2)
+    {
+        KeyStatus._hold_ack2 = 1;
+        shifter = 0;
+        asm ("nop");
+        asm ("nop");
+        asm ("nop");
+        tx_pipe = 1;
+        get_resp = 0;
+        
+        switch (Key._bounce)
+        {   
+            case 0x37:
+            {
+                go_tx = 1;
+                tx_pipe = 0;
+                get_resp = 1;             
+                break;
+            }                                    
+        }
+        asm ("nop");
+        asm ("nop");
+        asm ("nop");                
+        if(go_tx)
+        {
+            asm ("nop");
+            asm ("nop");
+            asm ("nop");                            
+            dev_ctl._invert = 1;
+            dev_ctl._both_devices = 0;
+            active_device = 0;                                               
+        }
+    }
+    
 }
