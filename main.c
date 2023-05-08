@@ -123,7 +123,8 @@ int main(void)
     asm ("nop");
     asm ("nop");   
     SI241_SetTx();
-            
+    dev_ctl._last_both_active = 1;
+    
     while (1)
     {
         asm ("nop");
@@ -157,10 +158,17 @@ int main(void)
                         dev_ctl._update_used = 0;
                         dev_ctl._last_used = 0;
                         active_device = 0;
-                        if(dev_ctl._next_used)
+                        if(!dev_ctl._last_both_active)
                         {
-                            active_device = 0x80;
-                            dev_ctl._last_used = 1;
+                            if(dev_ctl._next_used)
+                            {
+                                active_device = 0x80;
+                                dev_ctl._last_used = 1;
+                            }
+                        }
+                        else
+                        {
+                            dev_ctl._both_devices = 1;
                         }
                         Key._cmd = 0xc0;
                         function._char[1] = function._char[1] | 0x80;
@@ -290,7 +298,7 @@ int main(void)
                 ServiceKeyPress();
             }
         }
-        if(KeyStatus._new_cmd || dev_ctl._both_devices_go || (KeyStatus._hold_req && !KeyStatus._hold_ack) || (KeyStatus._hold_req2 && !KeyStatus._hold_ack2))
+        if(KeyStatus._new_cmd || dev_ctl._both_devices_go || (KeyStatus._hold_req && !KeyStatus._hold_ack) || (KeyStatus._hold_req2 && !KeyStatus._hold_ack2) || (KeyStatus._hold_req3 && !KeyStatus._hold_ack3))
         {
             ServiceCmd();
             if(go_tx || dev_ctl._both_devices_go)

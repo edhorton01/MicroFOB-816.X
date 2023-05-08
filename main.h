@@ -1,8 +1,8 @@
 
 #include "mcc_generated_files/utils/compiler.h"
 
-//#define KAYAK_REM    0x01
-#define NORMAL_REM  0x01
+#define KAYAK_REM    0x01
+//#define NORMAL_REM  0x01
 
 typedef union {
     struct {
@@ -19,6 +19,9 @@ typedef union {
         unsigned _hold_ack:1;        
         unsigned _hold_req2:1;
         unsigned _hold_ack2:1;        
+        unsigned _hold_req3:1;
+        unsigned _hold_ack3:1;        
+
     };
 } KEYstateBITS;
 
@@ -80,7 +83,7 @@ typedef union {
         unsigned _workhold:1;
         unsigned _fronthold:1;        
         unsigned _rearhold:1;        
-        unsigned _spare3:1;        
+        unsigned _gahold2:1;        
         unsigned _spare4:1;        
         unsigned _spare5:1;        
         unsigned _spare6:1;        
@@ -115,5 +118,6 @@ enum function_map {
     WORK_M,
     WORKHOLD_M,
     FRONTHOLD_M,
-    REARHOLD_M    
+    REARHOLD_M,
+    GAHOLD2_M,    
 };
