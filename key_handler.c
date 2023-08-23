@@ -1,25 +1,34 @@
 #include "main.h"
 #include "key_handler.h"
+#include "si241.h"
 #include "mcc_generated_files/mcc.h"
 #include "mcc_generated_files/include/port.h"
 
-#define debounce 10
+#define debounce 30
 #define hold_len  150 
 #define hold_len2 100 
 #define hold_len3 150
 
 extern volatile KEYstateBITS KeyStatus;
 extern volatile KEYstateControl Key;
+extern uint16_t si24_on_timer;
+extern SerialSt SerialWk;
+extern uint8_t test_channel;
+extern uint8_t fcc_power;
+
 extern uint8_t go_tx;
 extern uint8_t tx_pipe;
 extern uint8_t get_resp;
 extern uint8_t active_device;
+extern uint8_t testm;
+extern uint8_t testm_tx;
 
 extern uint8_t front_cmd;
 extern uint8_t rear_cmd;
 extern uint8_t ga_cmd;
 extern uint8_t dim_cmd;
 extern uint8_t work_cmd;
+extern uint8_t top_cmd;
 extern uint8_t last_press;
 
 extern ButtonState function;
@@ -183,7 +192,21 @@ void ServiceCmd(void)
             case 0x3d:
             {
                 shifter = REAR_M;
-                function._dimhold = 0;                
+                function._dimhold = 0;
+#ifdef FCC_MODE
+                SI241_PwrOff();
+                if(fcc_power > 0)
+                {
+                    fcc_power--;
+                }
+                SerialWk._tx_on = 1;
+                test_channel = 0x40;
+                fcc_power = 0x07;
+                tx_pipe = 0;
+                SI241_SetupTx();
+                SI241_SetTx();
+                si24_on_timer = 1000;                // set to 1000 * 0.01 = 10 Seconds 
+#else                                             
 #ifdef KAYAK_REM 
                 dev_ctl._last_both_active = 0x0;
                 dev_ctl._last_used = 0x0;
@@ -217,7 +240,8 @@ void ServiceCmd(void)
                     }
                 }
                 go_tx = 1; 
-#endif    
+#endif
+#endif
                 break;
             }
 
@@ -249,38 +273,81 @@ void ServiceCmd(void)
             {
                 last_press = Key._cmd;
                 shifter = GA_M;
-#ifdef KAYAK_REM                
-                dev_ctl._both_devices = 0x01;
-                dev_ctl._last_both_active = 0x01;
-                active_device = 0;
-                asm ("nop");
-                asm ("nop");
-                asm ("nop");                  
-                function._front = 0;
-                function._rear = 0;
-                function._top = 0;
-                function._dimhold = 0;
-                dim_cmd = 2;
-                function._dim = 1;
-#elif NORMAL_REM
-                if(dev_ctl._last_both_active)
+                if(testm && testm_tx)
                 {
-                    dev_ctl._both_devices = 0x01;
-                    active_device = 0;                                   
-                }
-                else
-                {
-                    if(dev_ctl._last_used)
+                    if(!SerialWk._tx_on)
                     {
-                        active_device = 0x80; 
+                        SerialWk._tx_on = 1;
+                        test_channel = 0x40;
+                        fcc_power = 0x07;
+                        tx_pipe = 0;
+                        SI241_SetupTx();
+                        SI241_SetTx();
+                        si24_on_timer = 1000;                // set to 1000 * 0.01 = 10 Seconds 
+
                     }
                     else
                     {
-                        active_device = 0x0;                        
+                        testm_tx = 0;
+                        SerialWk._tx_on = 0;
+                        SI241_PwrOff();
+                        si24_on_timer = 0;                    
                     }
-                }                               
+                }
+#ifdef FCC_MODE
+                if(!SerialWk._tx_on)
+                {
+                    SerialWk._tx_on = 1;
+                    test_channel = 0x40;
+                    fcc_power = 0x07;
+                    tx_pipe = 0;
+                    SI241_SetupTx();
+                    SI241_SetTx();
+                    si24_on_timer = 1000;                // set to 1000 * 0.01 = 10 Seconds 
+                }
+                else
+                {
+                    SerialWk._tx_on = 0;
+                    SI241_PwrOff();
+                    si24_on_timer = 0;                    
+                }
+#else
+                else
+                {
+#ifdef KAYAK_REM                
+                    dev_ctl._both_devices = 0x01;
+                    dev_ctl._last_both_active = 0x01;
+                    active_device = 0;
+    //                asm ("nop");
+    //                asm ("nop");
+    //                asm ("nop");                  
+                    function._front = 0;
+                    function._rear = 0;
+                    function._top = 0;
+                    function._dimhold = 0;
+                    dim_cmd = 2;
+                    function._dim = 1;
+#elif NORMAL_REM
+                    if(dev_ctl._last_both_active)
+                    {
+                        dev_ctl._both_devices = 0x01;
+                        active_device = 0;                                   
+                    }
+                    else
+                    {
+                        if(dev_ctl._last_used)
+                        {
+                            active_device = 0x80; 
+                        }
+                        else
+                        {
+                            active_device = 0x0;                        
+                        }
+                    }                               
 #endif                
-                go_tx = 1; 
+                    go_tx = 1; 
+                }
+#endif
                 break;
             }
 
@@ -311,7 +378,21 @@ void ServiceCmd(void)
             case 0x1f:
             {
                 shifter = FRONT_M;
-                function._dimhold = 0;                
+                function._dimhold = 0;
+#ifdef FCC_MODE
+                SI241_PwrOff();
+                if(fcc_power < 0x0f)
+                {
+                    fcc_power++;
+                }
+                SerialWk._tx_on = 1;
+                test_channel = 0x40;
+                fcc_power = 0x07;
+                tx_pipe = 0;
+                SI241_SetupTx();
+                SI241_SetTx();
+                si24_on_timer = 1000;                // set to 1000 * 0.01 = 10 Seconds 
+#else                                
 #ifdef KAYAK_REM                
                 dev_ctl._last_both_active = 0x0;
                 dev_ctl._last_used = 0x1;
@@ -345,7 +426,8 @@ void ServiceCmd(void)
                     }
                 }               
                 go_tx = 1; 
-#endif                
+#endif 
+#endif
                 break;
             }                        
         }
@@ -409,6 +491,29 @@ void ServiceCmd(void)
                     }
                 }
             } 
+
+            else if(shifter == TOP_M)
+            {
+                if(!(function._flags & mask))                   
+                {
+                    function._flags = function._flags | mask;
+                    top_cmd = 0;
+                    function._state = 1;
+                }
+                else
+                {
+                    top_cmd++;
+                    if(top_cmd >= 2)
+                    {
+                        function._flags = function._flags ^ mask;
+                        function._state = 0;
+                    }
+                    else
+                    {
+                        Key._cmd = Key._cmd + top_cmd;
+                    }
+                }
+            }
             
             else
             {
@@ -578,7 +683,29 @@ void ServiceCmd(void)
                 }
             }  
             else if(shifter == TOP_M)
-            {  
+            {
+                if(!(function._flags & mask))                   
+                {
+                    function._flags = function._flags | mask;
+                    top_cmd = 0;
+                    function._state = 1;
+                }
+                else
+                {
+                    top_cmd++;
+                    if(top_cmd >= 2)
+                    {
+                        function._flags = function._flags ^ mask;
+                        function._state = 0;
+                    }
+                    else
+                    {
+                        Key._cmd = Key._cmd + top_cmd;
+                    }
+                }
+                
+           
+/*                
                 function._flags = function._flags ^ mask;
                 if(function._flags & mask)
                 {
@@ -588,7 +715,9 @@ void ServiceCmd(void)
                 {
                      function._state = 0;                     
                 }
+*/ 
             }
+ 
 #endif               
         }
     }
@@ -597,9 +726,9 @@ void ServiceCmd(void)
     {
         KeyStatus._hold_ack = 1;
         shifter = 0;
-        asm ("nop");
-        asm ("nop");
-        asm ("nop");
+//        asm ("nop");
+//        asm ("nop");
+//        asm ("nop");
         tx_pipe = 1;
         get_resp = 0;
         
@@ -749,14 +878,14 @@ void ServiceCmd(void)
                 break;
             }                        
         }
-        asm ("nop");
-        asm ("nop");
-        asm ("nop");                
+//        asm ("nop");
+//        asm ("nop");
+//        asm ("nop");                
         if(go_tx)
         {
-            asm ("nop");
-            asm ("nop");
-            asm ("nop");                            
+//            asm ("nop");
+//            asm ("nop");
+//            asm ("nop");                            
             dev_ctl._invert = 1;
             mask = (0x01 << shifter);
             if(shifter == DIMHOLD_M)
@@ -806,9 +935,9 @@ void ServiceCmd(void)
     {
         KeyStatus._hold_ack2 = 1;
         shifter = 0;
-        asm ("nop");
-        asm ("nop");
-        asm ("nop");
+//        asm ("nop");
+//        asm ("nop");
+//        asm ("nop");
         tx_pipe = 1;
         get_resp = 0;
         
@@ -840,20 +969,20 @@ void ServiceCmd(void)
             }
 #endif            
         }
-        asm ("nop");
-        asm ("nop");
-        asm ("nop");                
+//        asm ("nop");
+//        asm ("nop");
+//        asm ("nop");                
         if(go_tx)
         {
 #ifdef NORMAL_REM
-            asm ("nop");
-            asm ("nop");
-            asm ("nop");                            
+//            asm ("nop");
+//            asm ("nop");
+//            asm ("nop");                            
             dev_ctl._invert = 0;           
 #else            
-            asm ("nop");
-            asm ("nop");
-            asm ("nop");                            
+//            asm ("nop");
+//            asm ("nop");
+//            asm ("nop");                            
             dev_ctl._invert = 1;
             dev_ctl._both_devices = 0;
             active_device = 0;
@@ -865,9 +994,9 @@ void ServiceCmd(void)
     {
         KeyStatus._hold_ack3 = 1;
         shifter = 0;
-        asm ("nop");
-        asm ("nop");
-        asm ("nop");
+//        asm ("nop");
+//        asm ("nop");
+//        asm ("nop");
         tx_pipe = 1;
         get_resp = 0;
         
@@ -894,17 +1023,15 @@ void ServiceCmd(void)
             }
 #endif            
         }
-        asm ("nop");
-        asm ("nop");
-        asm ("nop");                
+//        asm ("nop");
+//        asm ("nop");
+//        asm ("nop");                
         if(go_tx)
         {
-            asm ("nop");
-            asm ("nop");
-            asm ("nop");                            
+//            asm ("nop");
+//            asm ("nop");
+//            asm ("nop");                            
             dev_ctl._invert = 0;           
         }
-    }
-
-    
+    }   
 }

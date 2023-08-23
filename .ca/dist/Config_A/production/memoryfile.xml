@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<project>                                  
+  <executable name=".ca/dist/Config_A/production/MicroFOB-816.X.production.elf">                 
+    <memory name="program">              
+      <units>bytes</units>                 
+      <length>8192</length>                 
+      <used>7808</used>                     
+      <free>384</free>                     
+    </memory>                              
+    <memory name="data">                 
+      <units>bytes</units>                 
+      <length>512</length>                 
+      <used>192</used>                     
+      <free>320</free>                     
+    </memory>                              
+  </executable>                            
+</project>                                 

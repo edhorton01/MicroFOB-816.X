@@ -61,9 +61,9 @@ void PIN_MANAGER_Initialize()
     PORT_Initialize();
 
     /* DIR Registers Initialization */
-    PORTA.DIR = 0xEA;
+    PORTA.DIR = 0xCA;
     PORTB.DIR = 0x00;
-    PORTC.DIR = 0x0F;
+    PORTC.DIR = 0x05;
 
     /* OUT Registers Initialization */
     PORTA.OUT = 0x00;
@@ -88,9 +88,10 @@ void PIN_MANAGER_Initialize()
     PORTB.PIN6CTRL = 0x00;
     PORTB.PIN7CTRL = 0x00;
     PORTC.PIN0CTRL = 0x00;
-    PORTC.PIN1CTRL = 0x00;
-    PORTC.PIN2CTRL = 0x00;
-    PORTC.PIN3CTRL = 0x00;
+    PORTC.PIN1CTRL = 0x0B;
+    PORTC.PIN2CTRL = 0x08;
+//    PORTC.PIN3CTRL = 0x03;
+    PORTC.PIN3CTRL = 0x08;
     PORTC.PIN4CTRL = 0x00;
     PORTC.PIN5CTRL = 0x00;
     PORTC.PIN6CTRL = 0x00;
@@ -103,23 +104,25 @@ void PIN_MANAGER_Initialize()
     PORTMUX.CTRLD = 0x00;
 
     // register default ISC callback functions at runtime; use these methods to register a custom function
-    PORTB_IO_PB3_S5_SetInterruptHandler(PORTB_IO_PB3_S5_DefaultInterruptHandler);
-    PORTA_PA2_SetInterruptHandler(PORTA_PA2_DefaultInterruptHandler);
-    PORTB_IO_PB2_S2_SetInterruptHandler(PORTB_IO_PB2_S2_DefaultInterruptHandler);
-    PORTC_IO_PC3_TP1_SetInterruptHandler(PORTC_IO_PC3_TP1_DefaultInterruptHandler);
-    PORTA_PA1_SetInterruptHandler(PORTA_PA1_DefaultInterruptHandler);
-    PORTB_IO_PB5_S6_SetInterruptHandler(PORTB_IO_PB5_S6_DefaultInterruptHandler);
-    PORTA_IO_PA4_IRQ_SetInterruptHandler(PORTA_IO_PA4_IRQ_DefaultInterruptHandler);
-    PORTB_IO_PB4_S3_SetInterruptHandler(PORTB_IO_PB4_S3_DefaultInterruptHandler);
-    PORTA_PA3_SetInterruptHandler(PORTA_PA3_DefaultInterruptHandler);
-    PORTA_IO_PA6_CSN_SetInterruptHandler(PORTA_IO_PA6_CSN_DefaultInterruptHandler);
-    PORTA_IO_PA5_PWR_SetInterruptHandler(PORTA_IO_PA5_PWR_DefaultInterruptHandler);
-    PORTA_IO_PA7_CE_SetInterruptHandler(PORTA_IO_PA7_CE_DefaultInterruptHandler);
-    PORTC_IO_PC0_TP4_SetInterruptHandler(PORTC_IO_PC0_TP4_DefaultInterruptHandler);
-    PORTB_IO_PB1_S4_SetInterruptHandler(PORTB_IO_PB1_S4_DefaultInterruptHandler);
-    PORTC_IO_PC2_TP2_SetInterruptHandler(PORTC_IO_PC2_TP2_DefaultInterruptHandler);
     PORTB_IO_PB0_S1_SetInterruptHandler(PORTB_IO_PB0_S1_DefaultInterruptHandler);
-    PORTC_IO_PC1_TP3_SetInterruptHandler(PORTC_IO_PC1_TP3_DefaultInterruptHandler);
+    PORTB_IO_PB2_S2_SetInterruptHandler(PORTB_IO_PB2_S2_DefaultInterruptHandler);
+    PORTB_IO_PB4_S3_SetInterruptHandler(PORTB_IO_PB4_S3_DefaultInterruptHandler);
+    PORTB_IO_PB1_S4_SetInterruptHandler(PORTB_IO_PB1_S4_DefaultInterruptHandler);
+    PORTB_IO_PB3_S5_SetInterruptHandler(PORTB_IO_PB3_S5_DefaultInterruptHandler);
+    PORTB_IO_PB5_S6_SetInterruptHandler(PORTB_IO_PB5_S6_DefaultInterruptHandler);
+
+//    PORTA_PA1_SetInterruptHandler(PORTA_PA1_DefaultInterruptHandler);
+//    PORTA_PA2_SetInterruptHandler(PORTA_PA2_DefaultInterruptHandler);
+//    PORTA_PA3_SetInterruptHandler(PORTA_PA3_DefaultInterruptHandler);
+    PORTA_IO_PA4_IRQ_SetInterruptHandler(PORTA_IO_PA4_IRQ_DefaultInterruptHandler);
+//    PORTA_IO_PA5_PWR_SetInterruptHandler(PORTA_IO_PA5_PWR_DefaultInterruptHandler);
+//    PORTA_IO_PA6_CSN_SetInterruptHandler(PORTA_IO_PA6_CSN_DefaultInterruptHandler);
+//    PORTA_IO_PA7_CE_SetInterruptHandler(PORTA_IO_PA7_CE_DefaultInterruptHandler);
+
+    PORTC_IO_PC3_TP1_SetInterruptHandler(PORTC_IO_PC3_TP1_DefaultInterruptHandler);
+//    PORTC_IO_PC0_TP4_SetInterruptHandler(PORTC_IO_PC0_TP4_DefaultInterruptHandler);
+//    PORTC_IO_PC2_TP2_SetInterruptHandler(PORTC_IO_PC2_TP2_DefaultInterruptHandler);
+//    PORTC_IO_PC1_TP3_SetInterruptHandler(PORTC_IO_PC1_TP3_DefaultInterruptHandler);
 }
 
 void PORT_Initialize(void)
@@ -380,34 +383,34 @@ void PORTC_IO_PC1_TP3_DefaultInterruptHandler(void)
 ISR(PORTA_PORT_vect)
 {  
     // Call the interrupt handler for the callback registered at runtime
-    if(VPORTA.INTFLAGS & PORT_INT2_bm)
-    {
-       PORTA_PA2_InterruptHandler();
-    }
-    if(VPORTA.INTFLAGS & PORT_INT1_bm)
-    {
-       PORTA_PA1_InterruptHandler();
-    }
+//    if(VPORTA.INTFLAGS & PORT_INT2_bm)
+//    {
+//       PORTA_PA2_InterruptHandler();
+//    }
+//    if(VPORTA.INTFLAGS & PORT_INT1_bm)
+//    {
+//       PORTA_PA1_InterruptHandler();
+//    }
     if(VPORTA.INTFLAGS & PORT_INT4_bm)
     {
        PORTA_IO_PA4_IRQ_InterruptHandler();
     }
-    if(VPORTA.INTFLAGS & PORT_INT3_bm)
-    {
-       PORTA_PA3_InterruptHandler();
-    }
-    if(VPORTA.INTFLAGS & PORT_INT6_bm)
-    {
-       PORTA_IO_PA6_CSN_InterruptHandler();
-    }
-    if(VPORTA.INTFLAGS & PORT_INT5_bm)
-    {
-       PORTA_IO_PA5_PWR_InterruptHandler();
-    }
-    if(VPORTA.INTFLAGS & PORT_INT7_bm)
-    {
-       PORTA_IO_PA7_CE_InterruptHandler();
-    }
+//    if(VPORTA.INTFLAGS & PORT_INT3_bm)
+//    {
+//       PORTA_PA3_InterruptHandler();
+//    }
+//    if(VPORTA.INTFLAGS & PORT_INT6_bm)
+//    {
+//       PORTA_IO_PA6_CSN_InterruptHandler();
+//    }
+//    if(VPORTA.INTFLAGS & PORT_INT5_bm)
+//    {
+//       PORTA_IO_PA5_PWR_InterruptHandler();
+//    }
+//    if(VPORTA.INTFLAGS & PORT_INT7_bm)
+//    {
+//       PORTA_IO_PA7_CE_InterruptHandler();
+//    }
 
     /* Clear interrupt flags */
     VPORTA.INTFLAGS = 0xff;
@@ -443,5 +446,29 @@ ISR(PORTB_PORT_vect)
 
     /* Clear interrupt flags */
     VPORTB.INTFLAGS = 0xff;
+}
+
+ISR(PORTC_PORT_vect)
+{  
+    // Call the interrupt handler for the callback registered at runtime
+    if(VPORTC.INTFLAGS & PORT_INT3_bm)
+    {
+       PORTC_IO_PC3_TP1_InterruptHandler();
+    }
+//    if(VPORTC.INTFLAGS & PORT_INT0_bm)
+//    {
+//       PORTC_IO_PC0_TP4_InterruptHandler();
+//    }
+//    if(VPORTC.INTFLAGS & PORT_INT2_bm)
+//    {
+//       PORTC_IO_PC2_TP2_InterruptHandler();
+//    }
+//    if(VPORTC.INTFLAGS & PORT_INT1_bm)
+//    {
+//       PORTC_IO_PC1_TP3_InterruptHandler();
+//    }
+
+    /* Clear interrupt flags */
+    VPORTC.INTFLAGS = 0xff;
 }
 

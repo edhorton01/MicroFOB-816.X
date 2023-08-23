@@ -44,9 +44,10 @@ void SYSTEM_Initialize(void)
     CLKCTRL_Initialize();
     SLPCTRL_Initialize();
     SPI0_Initialize();
-    FLASH_Initialize();
     TCA0_Initialize();
+    FLASH_Initialize();
     CPUINT_Initialize();
+    TCB0_Initialize();
 }
 
 /**
@@ -89,7 +90,7 @@ int8_t CLKCTRL_Initialize()
     ccp_write_io((void*)&(CLKCTRL.OSC20MCTRLA),0x00);
 
     //PDIV 2X; PEN enabled; 
-    ccp_write_io((void*)&(CLKCTRL.MCLKCTRLB),0x05);
+    ccp_write_io((void*)&(CLKCTRL.MCLKCTRLB),0x01);
 
     //CLKOUT disabled; CLKSEL OSC20M; 
     ccp_write_io((void*)&(CLKCTRL.MCLKCTRLA),0x00);

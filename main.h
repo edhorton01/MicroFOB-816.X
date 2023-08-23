@@ -3,6 +3,7 @@
 
 #define KAYAK_REM    0x01
 //#define NORMAL_REM  0x01
+//#define FCC_MODE 0x01
 
 typedef union {
     struct {
@@ -106,6 +107,44 @@ typedef union {
         unsigned _resend:1;        
     };
 } Multiple;
+
+typedef struct {
+    uint8_t _ser_in;    
+    uint8_t _ser_rx_bc;
+    uint8_t _ser_rx_sc;    
+    uint8_t _ser_rx_int;
+    uint8_t _ser_out;
+    uint8_t _ser_tx_bc;
+    uint8_t _ser_tx_sc;    
+    uint8_t _buf_tx_bcnt;    
+    uint8_t _buf_tx_ccnt;    
+
+    union
+    {
+        struct {
+            uint8_t _flags;
+        };
+        struct {
+            unsigned _rx_inprog:1;
+            unsigned _tx_inprog:1;        
+            unsigned _frame_err:1;        
+            unsigned _buf_tx_req:1;        
+            unsigned _buf_tx_inprog:1;        
+            unsigned _tx_on:1;
+        };
+    };
+} SerialSt;
+
+typedef union {
+    struct {
+        uint16_t _word;
+    };
+    struct {
+        uint8_t _ms;
+        uint8_t _ls;
+    };    
+} Hexcon;
+
 
 enum function_map {
     FRONT_M, 

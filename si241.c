@@ -13,11 +13,12 @@ extern uint8_t RX_PL_Len;
 extern uint8_t TX_PL_Len;
 extern uint8_t TX_Address[6];
 extern uint8_t RX_Address[6];
-extern uint8_t Device_ID[5];
+extern uint8_t Device_ID[10];
 extern uint8_t tx_pipe;
 extern uint16_t si24_on_timer;
 extern uint8_t go_tx;
 extern uint8_t active_channel;
+extern uint8_t test_channel;
 extern uint8_t rx_bc;
 extern uint8_t e2_buf[6];
 extern micro_id remotes[2];
@@ -25,6 +26,10 @@ extern uint8_t active_device;
 extern ButtonState function;
 extern Multiple dev_ctl;
 extern uint8_t last_command;
+extern SerialSt SerialWk;
+extern uint8_t fcc_power;
+extern uint8_t testm;
+extern uint8_t testm_tx;
 
 extern volatile TmrDelay TimerD;
 extern volatile KEYstateControl Key;
@@ -43,7 +48,7 @@ void SI241_PwrOn(void)
     {
         PORTA.PIN4CTRL = 0x00;
         IO_PA5_PWR_SetHigh();
-        IO_PC3_TP1_SetHigh();
+//        IO_PC3_TP1_SetHigh();
 
         IO_PA6_CSN_SetHigh();
         IO_PA7_CE_SetLow();
@@ -73,25 +78,32 @@ void SI241_PwrOn(void)
 */       
     }
     si24_on_timer = 500;                // set to 500 * 0.01 = 5 Seconds
-    IO_PC3_TP1_SetLow();
+//    IO_PC3_TP1_SetLow();
 }
 
 void SI241_PwrOff(void)
 {
-    if(IO_PA5_PWR_GetValue())
+    if(!SerialWk._tx_on)
     {
-        PORTA.DIR = 0xEE;               // Set MISO as OUTPUT
-        PORTMUX.CTRLB = 0x0;            // Un-map SPI standard mappings to PORTA functions 
-        PORTA.OUT = 0x00;               // All lines Low
-        SPI0_Disable();                 // Disable SPI after power down       
+        if(IO_PA5_PWR_GetValue())
+        {
+            PORTA.DIR = 0xEE;               // Set MISO as OUTPUT
+            PORTMUX.CTRLB = 0x0;            // Un-map SPI standard mappings to PORTA functions 
+            PORTA.OUT = 0x00;               // All lines Low
+            SPI0_Disable();                 // Disable SPI after power down       
+        }
+        IO_PA5_PWR_SetLow(); 
+        IO_PA6_CSN_SetLow();
+        IO_PA7_CE_SetLow();
+        PA1_SetLow();
+        PA2_SetLow();
+        PA3_SetLow();
+        Si24_Status = 0;
     }
-    IO_PA5_PWR_SetLow(); 
-    IO_PA6_CSN_SetLow();
-    IO_PA7_CE_SetLow();
-    PA1_SetLow();
-    PA2_SetLow();
-    PA3_SetLow();
-    Si24_Status = 0;
+    else
+    {
+        si24_on_timer = 200;
+    }
 }
 
 void SI241_SetupTx(void)
@@ -101,14 +113,22 @@ void SI241_SetupTx(void)
     if(Si24_Status == 0x40)
     {
         SI241_PwrOff();
-        asm ("nop");
-        asm ("nop");
-        asm ("nop");       
+//        asm ("nop");
+//        asm ("nop");
+//        asm ("nop");       
     }
   
     SI241_PwrOn();
-    if(tx_pipe == 0)
+    if((tx_pipe == 0) || (testm))
     {
+        if(!testm)
+        {
+#ifdef KAYAK_REM
+            Key._cmd = 0x11;
+#elif NORMAL_REM
+            Key._cmd = 0x22;
+#endif            
+        }
         TX_Payload[0] = W_TX_PAYLOAD_NOACK;
         TX_Payload[1] = ~Key._cmd;
         TX_Payload[2] = Key._cmd;                        
@@ -126,10 +146,10 @@ void SI241_SetupTx(void)
         
         work = Key._cmd | (function._char[1] & 0x80);
         last_command = work;
-        asm ("nop");
-        asm ("nop");
-        asm ("nop");               
-        if(dev_ctl._invert)
+//        asm ("nop");
+//        asm ("nop");
+//        asm ("nop");               
+        if(dev_ctl._invert && !testm)
         {
             TX_Payload[1] = ~work;
             TX_Payload[2] = work;                        
@@ -180,7 +200,15 @@ void SI241_SetupTx(void)
     SPI_Bout[0] = SPI_Bout[0] | W_REGISTER;
     if(tx_pipe == 0)
     {
-        SPI_Bout[1] = 0x40;
+        if(SerialWk._tx_on)
+        {
+            SPI_Bout[1] = test_channel;
+            
+        }
+        else
+        {
+            SPI_Bout[1] = 0x40;
+        }
     }
     else
     {
@@ -192,8 +220,15 @@ void SI241_SetupTx(void)
     IO_PA6_CSN_SetHigh();        
 
     SPI_Bout[0] = RF_SETUP;
-    SPI_Bout[0] = SPI_Bout[0] | W_REGISTER;    
-    SPI_Bout[1] = 0x0f;
+    SPI_Bout[0] = SPI_Bout[0] | W_REGISTER;
+    if(SerialWk._tx_on)
+    {
+        SPI_Bout[1] = 0x80 | fcc_power;        
+    }
+    else
+    {
+        SPI_Bout[1] = 0x0f;        
+    }
     IO_PA6_CSN_SetLow();        
     SPI0_WriteBlock(&SPI_Bout, 2);
     while(!SPI0_StatusDone());
@@ -225,13 +260,13 @@ void SI241_SetupTx(void)
         IO_PA6_CSN_SetHigh();                
     }
     
-    IO_PA6_CSN_SetLow();
-    SPI0_ReadBlockCmd(&SPI_Bin, 6, 0x10);
-    while(!SPI0_StatusDone());
-    IO_PA6_CSN_SetHigh();
-    asm ("nop");
-    asm ("nop");
-    asm ("nop");       
+//    IO_PA6_CSN_SetLow();
+//    SPI0_ReadBlockCmd(&SPI_Bin, 6, 0x10);
+//    while(!SPI0_StatusDone());
+//    IO_PA6_CSN_SetHigh();
+//    asm ("nop");
+//    asm ("nop");
+//    asm ("nop");       
 }
 
 
@@ -374,7 +409,7 @@ void SI241_LoadTxAddress(void)
 {
     TX_Address[0] = TX_ADDR;
     TX_Address[0] = TX_Address[0] | W_REGISTER;
-    if(tx_pipe == 0)
+    if((tx_pipe == 0) || (testm))
     {
         TX_Address[1] = Broadcast_ID[0];
         TX_Address[2] = Broadcast_ID[1];
@@ -430,7 +465,8 @@ void SI241_SaveRxAddress(void)
 {
     uint8_t k;
     uint16_t il, ip;
-    cli();    
+    cli();
+/*    
     FLASH_Initialize();
     if(RX_Payload[1] == 0x11)
     {
@@ -495,9 +531,11 @@ void SI241_SaveRxAddress(void)
         eerom_ret = FLASH_WriteEepromByte(ee_addr_e, ee_data_n);
         ee_addr++;
     }
+*/
     sei();
 }
 
+/*
 micro_id SI241_ReadRxAddress(uint8_t offset)
 {
     uint8_t k, c1, c2;
@@ -580,3 +618,4 @@ micro_id SI241_ReadRxAddress(uint8_t offset)
         }
         return remote;
     }
+*/

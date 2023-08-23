@@ -46,6 +46,10 @@
          <string>class com.microchip.mcc.mcu8.modules.tca.tiny_mega_init.TCA</string>
       </entry>
       <entry>
+         <string>TCB0</string>
+         <string>class com.microchip.mcc.mcu8.modules.tcb.tiny_mega_init.TCB</string>
+      </entry>
+      <entry>
          <string>WDT</string>
          <string>class com.microchip.mcc.mcu8.systemManager.tiny_mega_init.wdt.WDT</string>
       </entry>
@@ -620,7 +624,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="Interrupt Manager" name="interruptVectorTable"/>
-         <value>{&quot;type&quot;:&quot;tableDynamicControls&quot;,&quot;key&quot;:&quot;interruptVectorTable&quot;,&quot;dataArray&quot;: [{&quot;Module&quot;: {&quot;id&quot;:&quot;Module_rowCount_0&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;NVMCTRL&quot;,&quot;value&quot;:&quot;NVMCTRL&quot;}},&quot;Interrupt&quot;: {&quot;id&quot;:&quot;Interrupt_rowCount_0&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;EEREADY&quot;,&quot;value&quot;:&quot;EEREADY&quot;}},&quot;Enable&quot;: {&quot;id&quot;:&quot;Enable_rowCount_0&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;false&quot;,&quot;value&quot;:&quot;false&quot;}}},{&quot;Module&quot;: {&quot;id&quot;:&quot;Module_rowCount_1&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;SPI0&quot;,&quot;value&quot;:&quot;SPI0&quot;}},&quot;Interrupt&quot;: {&quot;id&quot;:&quot;Interrupt_rowCount_1&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;DRE&quot;,&quot;value&quot;:&quot;DRE&quot;}},&quot;Enable&quot;: {&quot;id&quot;:&quot;Enable_rowCount_1&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;false&quot;,&quot;value&quot;:&quot;false&quot;}}},{&quot;Module&quot;: {&quot;id&quot;:&quot;Module_rowCount_2&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;BOD&quot;,&quot;value&quot;:&quot;BOD&quot;}},&quot;Interrupt&quot;: {&quot;id&quot;:&quot;Interrupt_rowCount_2&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;VLM&quot;,&quot;value&quot;:&quot;VLM&quot;}},&quot;Enable&quot;: {&quot;id&quot;:&quot;Enable_rowCount_2&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;false&quot;,&quot;value&quot;:&quot;false&quot;}}},{&quot;Module&quot;: {&quot;id&quot;:&quot;Module_rowCount_3&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;SPI0&quot;,&quot;value&quot;:&quot;SPI0&quot;}},&quot;Interrupt&quot;: {&quot;id&quot;:&quot;Interrupt_rowCount_3&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;SSI&quot;,&quot;value&quot;:&quot;SSI&quot;}},&quot;Enable&quot;: {&quot;id&quot;:&quot;Enable_rowCount_3&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;false&quot;,&quot;value&quot;:&quot;false&quot;}}},{&quot;Module&quot;: {&quot;id&quot;:&quot;Module_rowCount_4&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;TCA0&quot;,&quot;value&quot;:&quot;TCA0&quot;}},&quot;Interrupt&quot;: {&quot;id&quot;:&quot;Interrupt_rowCount_4&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;CMP2I&quot;,&quot;value&quot;:&quot;CMP2I&quot;}},&quot;Enable&quot;: {&quot;id&quot;:&quot;Enable_rowCount_4&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;false&quot;,&quot;value&quot;:&quot;false&quot;}}},{&quot;Module&quot;: {&quot;id&quot;:&quot;Module_rowCount_5&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;TCA0&quot;,&quot;value&quot;:&quot;TCA0&quot;}},&quot;Interrupt&quot;: {&quot;id&quot;:&quot;Interrupt_rowCount_5&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;CMP1I&quot;,&quot;value&quot;:&quot;CMP1I&quot;}},&quot;Enable&quot;: {&quot;id&quot;:&quot;Enable_rowCount_5&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;false&quot;,&quot;value&quot;:&quot;false&quot;}}},{&quot;Module&quot;: {&quot;id&quot;:&quot;Module_rowCount_6&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;TCA0&quot;,&quot;value&quot;:&quot;TCA0&quot;}},&quot;Interrupt&quot;: {&quot;id&quot;:&quot;Interrupt_rowCount_6&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;CMP0I&quot;,&quot;value&quot;:&quot;CMP0I&quot;}},&quot;Enable&quot;: {&quot;id&quot;:&quot;Enable_rowCount_6&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;false&quot;,&quot;value&quot;:&quot;false&quot;}}},{&quot;Module&quot;: {&quot;id&quot;:&quot;Module_rowCount_7&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;SPI0&quot;,&quot;value&quot;:&quot;SPI0&quot;}},&quot;Interrupt&quot;: {&quot;id&quot;:&quot;Interrupt_rowCount_7&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;RXC&quot;,&quot;value&quot;:&quot;RXC&quot;}},&quot;Enable&quot;: {&quot;id&quot;:&quot;Enable_rowCount_7&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;false&quot;,&quot;value&quot;:&quot;false&quot;}}},{&quot;Module&quot;: {&quot;id&quot;:&quot;Module_rowCount_8&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;SPI0&quot;,&quot;value&quot;:&quot;SPI0&quot;}},&quot;Interrupt&quot;: {&quot;id&quot;:&quot;Interrupt_rowCount_8&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;IE&quot;,&quot;value&quot;:&quot;IE&quot;}},&quot;Enable&quot;: {&quot;id&quot;:&quot;Enable_rowCount_8&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;true&quot;,&quot;value&quot;:&quot;true&quot;}}},{&quot;Module&quot;: {&quot;id&quot;:&quot;Module_rowCount_9&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;SPI0&quot;,&quot;value&quot;:&quot;SPI0&quot;}},&quot;Interrupt&quot;: {&quot;id&quot;:&quot;Interrupt_rowCount_9&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;TXC&quot;,&quot;value&quot;:&quot;TXC&quot;}},&quot;Enable&quot;: {&quot;id&quot;:&quot;Enable_rowCount_9&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;true&quot;,&quot;value&quot;:&quot;true&quot;}}},{&quot;Module&quot;: {&quot;id&quot;:&quot;Module_rowCount_10&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;TCA0&quot;,&quot;value&quot;:&quot;TCA0&quot;}},&quot;Interrupt&quot;: {&quot;id&quot;:&quot;Interrupt_rowCount_10&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;OVFI&quot;,&quot;value&quot;:&quot;OVFI&quot;}},&quot;Enable&quot;: {&quot;id&quot;:&quot;Enable_rowCount_10&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;true&quot;,&quot;value&quot;:&quot;true&quot;}}}] } </value>
+         <value>{&quot;type&quot;:&quot;tableDynamicControls&quot;,&quot;key&quot;:&quot;interruptVectorTable&quot;,&quot;dataArray&quot;: [{&quot;Module&quot;: {&quot;id&quot;:&quot;Module_rowCount_0&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;SPI0&quot;,&quot;value&quot;:&quot;SPI0&quot;}},&quot;Interrupt&quot;: {&quot;id&quot;:&quot;Interrupt_rowCount_0&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;SSI&quot;,&quot;value&quot;:&quot;SSI&quot;}},&quot;Enable&quot;: {&quot;id&quot;:&quot;Enable_rowCount_0&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;false&quot;,&quot;value&quot;:&quot;false&quot;}}},{&quot;Module&quot;: {&quot;id&quot;:&quot;Module_rowCount_1&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;TCA0&quot;,&quot;value&quot;:&quot;TCA0&quot;}},&quot;Interrupt&quot;: {&quot;id&quot;:&quot;Interrupt_rowCount_1&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;CMP2I&quot;,&quot;value&quot;:&quot;CMP2I&quot;}},&quot;Enable&quot;: {&quot;id&quot;:&quot;Enable_rowCount_1&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;false&quot;,&quot;value&quot;:&quot;false&quot;}}},{&quot;Module&quot;: {&quot;id&quot;:&quot;Module_rowCount_2&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;TCA0&quot;,&quot;value&quot;:&quot;TCA0&quot;}},&quot;Interrupt&quot;: {&quot;id&quot;:&quot;Interrupt_rowCount_2&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;CMP1I&quot;,&quot;value&quot;:&quot;CMP1I&quot;}},&quot;Enable&quot;: {&quot;id&quot;:&quot;Enable_rowCount_2&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;false&quot;,&quot;value&quot;:&quot;false&quot;}}},{&quot;Module&quot;: {&quot;id&quot;:&quot;Module_rowCount_3&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;TCA0&quot;,&quot;value&quot;:&quot;TCA0&quot;}},&quot;Interrupt&quot;: {&quot;id&quot;:&quot;Interrupt_rowCount_3&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;CMP0I&quot;,&quot;value&quot;:&quot;CMP0I&quot;}},&quot;Enable&quot;: {&quot;id&quot;:&quot;Enable_rowCount_3&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;false&quot;,&quot;value&quot;:&quot;false&quot;}}},{&quot;Module&quot;: {&quot;id&quot;:&quot;Module_rowCount_4&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;TCB0&quot;,&quot;value&quot;:&quot;TCB0&quot;}},&quot;Interrupt&quot;: {&quot;id&quot;:&quot;Interrupt_rowCount_4&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;INT&quot;,&quot;value&quot;:&quot;INT&quot;}},&quot;Enable&quot;: {&quot;id&quot;:&quot;Enable_rowCount_4&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;true&quot;,&quot;value&quot;:&quot;true&quot;}}},{&quot;Module&quot;: {&quot;id&quot;:&quot;Module_rowCount_5&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;TCA0&quot;,&quot;value&quot;:&quot;TCA0&quot;}},&quot;Interrupt&quot;: {&quot;id&quot;:&quot;Interrupt_rowCount_5&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;OVFI&quot;,&quot;value&quot;:&quot;OVFI&quot;}},&quot;Enable&quot;: {&quot;id&quot;:&quot;Enable_rowCount_5&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;true&quot;,&quot;value&quot;:&quot;true&quot;}}},{&quot;Module&quot;: {&quot;id&quot;:&quot;Module_rowCount_6&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;NVMCTRL&quot;,&quot;value&quot;:&quot;NVMCTRL&quot;}},&quot;Interrupt&quot;: {&quot;id&quot;:&quot;Interrupt_rowCount_6&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;EEREADY&quot;,&quot;value&quot;:&quot;EEREADY&quot;}},&quot;Enable&quot;: {&quot;id&quot;:&quot;Enable_rowCount_6&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;false&quot;,&quot;value&quot;:&quot;false&quot;}}},{&quot;Module&quot;: {&quot;id&quot;:&quot;Module_rowCount_7&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;SPI0&quot;,&quot;value&quot;:&quot;SPI0&quot;}},&quot;Interrupt&quot;: {&quot;id&quot;:&quot;Interrupt_rowCount_7&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;DRE&quot;,&quot;value&quot;:&quot;DRE&quot;}},&quot;Enable&quot;: {&quot;id&quot;:&quot;Enable_rowCount_7&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;false&quot;,&quot;value&quot;:&quot;false&quot;}}},{&quot;Module&quot;: {&quot;id&quot;:&quot;Module_rowCount_8&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;BOD&quot;,&quot;value&quot;:&quot;BOD&quot;}},&quot;Interrupt&quot;: {&quot;id&quot;:&quot;Interrupt_rowCount_8&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;VLM&quot;,&quot;value&quot;:&quot;VLM&quot;}},&quot;Enable&quot;: {&quot;id&quot;:&quot;Enable_rowCount_8&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;false&quot;,&quot;value&quot;:&quot;false&quot;}}},{&quot;Module&quot;: {&quot;id&quot;:&quot;Module_rowCount_9&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;SPI0&quot;,&quot;value&quot;:&quot;SPI0&quot;}},&quot;Interrupt&quot;: {&quot;id&quot;:&quot;Interrupt_rowCount_9&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;RXC&quot;,&quot;value&quot;:&quot;RXC&quot;}},&quot;Enable&quot;: {&quot;id&quot;:&quot;Enable_rowCount_9&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;false&quot;,&quot;value&quot;:&quot;false&quot;}}},{&quot;Module&quot;: {&quot;id&quot;:&quot;Module_rowCount_10&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;SPI0&quot;,&quot;value&quot;:&quot;SPI0&quot;}},&quot;Interrupt&quot;: {&quot;id&quot;:&quot;Interrupt_rowCount_10&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;IE&quot;,&quot;value&quot;:&quot;IE&quot;}},&quot;Enable&quot;: {&quot;id&quot;:&quot;Enable_rowCount_10&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;true&quot;,&quot;value&quot;:&quot;true&quot;}}},{&quot;Module&quot;: {&quot;id&quot;:&quot;Module_rowCount_11&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;SPI0&quot;,&quot;value&quot;:&quot;SPI0&quot;}},&quot;Interrupt&quot;: {&quot;id&quot;:&quot;Interrupt_rowCount_11&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;TXC&quot;,&quot;value&quot;:&quot;TXC&quot;}},&quot;Enable&quot;: {&quot;id&quot;:&quot;Enable_rowCount_11&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;true&quot;,&quot;value&quot;:&quot;true&quot;}}},{&quot;Module&quot;: {&quot;id&quot;:&quot;Module_rowCount_12&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;TCB0&quot;,&quot;value&quot;:&quot;TCB0&quot;}},&quot;Interrupt&quot;: {&quot;id&quot;:&quot;Interrupt_rowCount_12&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;OVF&quot;,&quot;value&quot;:&quot;OVF&quot;}},&quot;Enable&quot;: {&quot;id&quot;:&quot;Enable_rowCount_12&quot;,&quot;data&quot;:{&quot;text&quot;:&quot;false&quot;,&quot;value&quot;:&quot;false&quot;}}}] } </value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="Interrupt Manager" name="isCMPVectorEnable"/>
@@ -884,7 +888,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="Pin Module" name="DIR_PA5"/>
-         <value>true</value>
+         <value>false</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="Pin Module" name="DIR_PA6"/>
@@ -924,15 +928,15 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="Pin Module" name="DIR_PC1"/>
-         <value>true</value>
+         <value>false</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="Pin Module" name="DIR_PC2"/>
-         <value>true</value>
+         <value>false</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="Pin Module" name="DIR_PC3"/>
-         <value>true</value>
+         <value>false</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="Pin Module" name="OUT_PA0"/>
@@ -1028,7 +1032,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="Pin Module" name="PA5"/>
-         <value>output</value>
+         <value>input</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="Pin Module" name="PA6"/>
@@ -1068,15 +1072,15 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="Pin Module" name="PC1"/>
-         <value>output</value>
+         <value>input</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="Pin Module" name="PC2"/>
-         <value>output</value>
+         <value>input</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="Pin Module" name="PC3"/>
-         <value>output</value>
+         <value>input</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="Pin Module" name="customNameUserSet PA0"/>
@@ -2384,7 +2388,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.RegisterKey" moduleName="Pin Module" registerAlias="PORTA.DIR"/>
-         <value>234</value>
+         <value>202</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.RegisterKey" moduleName="Pin Module" registerAlias="PORTA.DIRCLR"/>
@@ -2528,7 +2532,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.RegisterKey" moduleName="Pin Module" registerAlias="PORTC.DIR"/>
-         <value>15</value>
+         <value>1</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.RegisterKey" moduleName="Pin Module" registerAlias="PORTC.DIRCLR"/>
@@ -2572,15 +2576,15 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.RegisterKey" moduleName="Pin Module" registerAlias="PORTC.PIN1CTRL"/>
-         <value>0</value>
+         <value>11</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.RegisterKey" moduleName="Pin Module" registerAlias="PORTC.PIN2CTRL"/>
-         <value>0</value>
+         <value>8</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.RegisterKey" moduleName="Pin Module" registerAlias="PORTC.PIN3CTRL"/>
-         <value>0</value>
+         <value>11</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.RegisterKey" moduleName="Pin Module" registerAlias="PORTC.PIN4CTRL"/>
@@ -2664,7 +2668,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="Pin Module" registerAlias="PORTA.DIR" settingAlias="PORTA.DIR"/>
-         <value>234</value>
+         <value>202</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="Pin Module" registerAlias="PORTA.DIRCLR" settingAlias="PORTA.DIRCLR"/>
@@ -2936,7 +2940,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="Pin Module" registerAlias="PORTC.DIR" settingAlias="PORTC.DIR"/>
-         <value>15</value>
+         <value>1</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="Pin Module" registerAlias="PORTC.DIRCLR" settingAlias="PORTC.DIRCLR"/>
@@ -2992,11 +2996,11 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="Pin Module" registerAlias="PORTC.PIN1CTRL" settingAlias="ISC"/>
-         <value>INTDISABLE</value>
+         <value>FALLING</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="Pin Module" registerAlias="PORTC.PIN1CTRL" settingAlias="PULLUPEN"/>
-         <value>disabled</value>
+         <value>enabled</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="Pin Module" registerAlias="PORTC.PIN2CTRL" settingAlias="INVEN"/>
@@ -3008,7 +3012,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="Pin Module" registerAlias="PORTC.PIN2CTRL" settingAlias="PULLUPEN"/>
-         <value>disabled</value>
+         <value>enabled</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="Pin Module" registerAlias="PORTC.PIN3CTRL" settingAlias="INVEN"/>
@@ -3016,11 +3020,11 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="Pin Module" registerAlias="PORTC.PIN3CTRL" settingAlias="ISC"/>
-         <value>INTDISABLE</value>
+         <value>FALLING</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="Pin Module" registerAlias="PORTC.PIN3CTRL" settingAlias="PULLUPEN"/>
-         <value>disabled</value>
+         <value>enabled</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="Pin Module" registerAlias="PORTC.PIN4CTRL" settingAlias="INVEN"/>
@@ -5919,6 +5923,346 @@
          <value>disabled</value>
       </entry>
       <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="TCB0" name="CLK_PER"/>
+         <value>10000000</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="TCB0" name="CLK_TCB"/>
+         <value>10000000</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="TCB0" name="PIN_WO0_ALT"/>
+         <value>alternate</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="TCB0" name="PIN_WO0_DEF"/>
+         <value>WO0_DEF</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="TCB0" name="TCB0_INTISRFunction"/>
+         <value>ISR_TCB0_INT</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="TCB0" name="actualPeriod"/>
+         <value>6.5 us</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="TCB0" name="clockSelect"/>
+         <value>CLK_PER (No Prescaling)</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="TCB0" name="componentName"/>
+         <value>TCB0</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="TCB0" name="isAsynchEnable"/>
+         <value>false</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="TCB0" name="isCAPTIntEnable"/>
+         <value>true</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="TCB0" name="isCapEventInpEnable"/>
+         <value>false</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="TCB0" name="isCascadeEnable"/>
+         <value>false</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="TCB0" name="isDebRunEnable"/>
+         <value>false</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="TCB0" name="isEventEdgeEnable"/>
+         <value>false</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="TCB0" name="isNoiseCancelEnable"/>
+         <value>false</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="TCB0" name="isOVFIntEnable"/>
+         <value>false</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="TCB0" name="isPinInitStateEnable"/>
+         <value>false</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="TCB0" name="isPinOutputEnable"/>
+         <value>true</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="TCB0" name="isRunStandbyEnable"/>
+         <value>false</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="TCB0" name="isSyncUpdEnable"/>
+         <value>false</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="TCB0" name="isTcbEnable"/>
+         <value>true</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="TCB0" name="timerMode"/>
+         <value>Periodic Interrupt</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="TCB0" name="timerPeriod"/>
+         <value>6.5uS</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="TCB0" name="timerPeriod_MAX"/>
+         <value>6.554 ms</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="TCB0" name="timerPeriod_MIN"/>
+         <value>200 ns</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.OptionKey" moduleName="TCB0" registerAlias="CTRLA" settingAlias="CLKSEL" alias="CLKDIV1"/>
+         <value>0</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.OptionKey" moduleName="TCB0" registerAlias="CTRLA" settingAlias="CLKSEL" alias="CLKDIV2"/>
+         <value>1</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.OptionKey" moduleName="TCB0" registerAlias="CTRLA" settingAlias="CLKSEL" alias="CLKTCA"/>
+         <value>2</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.OptionKey" moduleName="TCB0" registerAlias="CTRLA" settingAlias="ENABLE" alias="disabled"/>
+         <value>0</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.OptionKey" moduleName="TCB0" registerAlias="CTRLA" settingAlias="ENABLE" alias="enabled"/>
+         <value>1</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.OptionKey" moduleName="TCB0" registerAlias="CTRLA" settingAlias="RUNSTDBY" alias="disabled"/>
+         <value>0</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.OptionKey" moduleName="TCB0" registerAlias="CTRLA" settingAlias="RUNSTDBY" alias="enabled"/>
+         <value>1</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.OptionKey" moduleName="TCB0" registerAlias="CTRLA" settingAlias="SYNCUPD" alias="disabled"/>
+         <value>0</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.OptionKey" moduleName="TCB0" registerAlias="CTRLA" settingAlias="SYNCUPD" alias="enabled"/>
+         <value>1</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.OptionKey" moduleName="TCB0" registerAlias="CTRLB" settingAlias="ASYNC" alias="disabled"/>
+         <value>0</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.OptionKey" moduleName="TCB0" registerAlias="CTRLB" settingAlias="ASYNC" alias="enabled"/>
+         <value>1</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.OptionKey" moduleName="TCB0" registerAlias="CTRLB" settingAlias="CCMPEN" alias="disabled"/>
+         <value>0</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.OptionKey" moduleName="TCB0" registerAlias="CTRLB" settingAlias="CCMPEN" alias="enabled"/>
+         <value>1</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.OptionKey" moduleName="TCB0" registerAlias="CTRLB" settingAlias="CCMPINIT" alias="disabled"/>
+         <value>0</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.OptionKey" moduleName="TCB0" registerAlias="CTRLB" settingAlias="CCMPINIT" alias="enabled"/>
+         <value>1</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.OptionKey" moduleName="TCB0" registerAlias="CTRLB" settingAlias="CNTMODE" alias="CAPT"/>
+         <value>2</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.OptionKey" moduleName="TCB0" registerAlias="CTRLB" settingAlias="CNTMODE" alias="FRQ"/>
+         <value>3</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.OptionKey" moduleName="TCB0" registerAlias="CTRLB" settingAlias="CNTMODE" alias="FRQPW"/>
+         <value>5</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.OptionKey" moduleName="TCB0" registerAlias="CTRLB" settingAlias="CNTMODE" alias="INT"/>
+         <value>0</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.OptionKey" moduleName="TCB0" registerAlias="CTRLB" settingAlias="CNTMODE" alias="PW"/>
+         <value>4</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.OptionKey" moduleName="TCB0" registerAlias="CTRLB" settingAlias="CNTMODE" alias="PWM8"/>
+         <value>7</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.OptionKey" moduleName="TCB0" registerAlias="CTRLB" settingAlias="CNTMODE" alias="SINGLE"/>
+         <value>6</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.OptionKey" moduleName="TCB0" registerAlias="CTRLB" settingAlias="CNTMODE" alias="TIMEOUT"/>
+         <value>1</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.OptionKey" moduleName="TCB0" registerAlias="DBGCTRL" settingAlias="DBGRUN" alias="disabled"/>
+         <value>0</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.OptionKey" moduleName="TCB0" registerAlias="DBGCTRL" settingAlias="DBGRUN" alias="enabled"/>
+         <value>1</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.OptionKey" moduleName="TCB0" registerAlias="EVCTRL" settingAlias="CAPTEI" alias="disabled"/>
+         <value>0</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.OptionKey" moduleName="TCB0" registerAlias="EVCTRL" settingAlias="CAPTEI" alias="enabled"/>
+         <value>1</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.OptionKey" moduleName="TCB0" registerAlias="EVCTRL" settingAlias="EDGE" alias="disabled"/>
+         <value>0</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.OptionKey" moduleName="TCB0" registerAlias="EVCTRL" settingAlias="EDGE" alias="enabled"/>
+         <value>1</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.OptionKey" moduleName="TCB0" registerAlias="EVCTRL" settingAlias="FILTER" alias="disabled"/>
+         <value>0</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.OptionKey" moduleName="TCB0" registerAlias="EVCTRL" settingAlias="FILTER" alias="enabled"/>
+         <value>1</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.OptionKey" moduleName="TCB0" registerAlias="INTCTRL" settingAlias="CAPT" alias="disabled"/>
+         <value>0</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.OptionKey" moduleName="TCB0" registerAlias="INTCTRL" settingAlias="CAPT" alias="enabled"/>
+         <value>1</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.OptionKey" moduleName="TCB0" registerAlias="INTFLAGS" settingAlias="CAPT" alias="disabled"/>
+         <value>0</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.OptionKey" moduleName="TCB0" registerAlias="INTFLAGS" settingAlias="CAPT" alias="enabled"/>
+         <value>1</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.RegisterKey" moduleName="TCB0" registerAlias="CCMP"/>
+         <value>64</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.RegisterKey" moduleName="TCB0" registerAlias="CNT"/>
+         <value>0</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.RegisterKey" moduleName="TCB0" registerAlias="CTRLA"/>
+         <value>1</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.RegisterKey" moduleName="TCB0" registerAlias="CTRLB"/>
+         <value>16</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.RegisterKey" moduleName="TCB0" registerAlias="DBGCTRL"/>
+         <value>0</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.RegisterKey" moduleName="TCB0" registerAlias="EVCTRL"/>
+         <value>0</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.RegisterKey" moduleName="TCB0" registerAlias="INTCTRL"/>
+         <value>1</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.RegisterKey" moduleName="TCB0" registerAlias="INTFLAGS"/>
+         <value>0</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.RegisterKey" moduleName="TCB0" registerAlias="TEMP"/>
+         <value>0</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="TCB0" registerAlias="CTRLA" settingAlias="CLKSEL"/>
+         <value>CLKDIV1</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="TCB0" registerAlias="CTRLA" settingAlias="ENABLE"/>
+         <value>enabled</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="TCB0" registerAlias="CTRLA" settingAlias="RUNSTDBY"/>
+         <value>disabled</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="TCB0" registerAlias="CTRLA" settingAlias="SYNCUPD"/>
+         <value>disabled</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="TCB0" registerAlias="CTRLB" settingAlias="ASYNC"/>
+         <value>disabled</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="TCB0" registerAlias="CTRLB" settingAlias="CCMPEN"/>
+         <value>enabled</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="TCB0" registerAlias="CTRLB" settingAlias="CCMPINIT"/>
+         <value>disabled</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="TCB0" registerAlias="CTRLB" settingAlias="CNTMODE"/>
+         <value>INT</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="TCB0" registerAlias="DBGCTRL" settingAlias="DBGRUN"/>
+         <value>disabled</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="TCB0" registerAlias="EVCTRL" settingAlias="CAPTEI"/>
+         <value>disabled</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="TCB0" registerAlias="EVCTRL" settingAlias="EDGE"/>
+         <value>disabled</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="TCB0" registerAlias="EVCTRL" settingAlias="FILTER"/>
+         <value>disabled</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="TCB0" registerAlias="INT" settingAlias="enable"/>
+         <value>enabled</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="TCB0" registerAlias="INT" settingAlias="flag"/>
+         <value>disabled</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="TCB0" registerAlias="INTCTRL" settingAlias="CAPT"/>
+         <value>enabled</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="TCB0" registerAlias="INTFLAGS" settingAlias="CAPT"/>
+         <value>disabled</value>
+      </entry>
+      <entry>
          <key class="com.microchip.mcc.core.tokenManager.OptionKey" moduleName="WDT" registerAlias="CTRLA" settingAlias="PERIOD" alias="128CLK"/>
          <value>5</value>
       </entry>
@@ -6055,118 +6399,126 @@
          <value>disabled</value>
       </entry>
    </tokenMap>
-   <generatedFileHashHistoryMap class="java.util.HashMap">
+   <generatedFileHashHistoryMap class="java.util.TreeMap">
       <entry>
-         <file>mcc_generated_files/src/pin_manager.c</file>
-         <hash>275ba2a8ac713700fe9403cc1b088db70b400282b0ad2803efcbd5b55015f20c</hash>
+         <file>main.c</file>
+         <hash>ad6433d2c98b42e7128f2ebaca15eb375df8a83f923bb0a884d7b0373577396a</hash>
       </entry>
       <entry>
          <file>mcc_generated_files/config/clock_config.h</file>
          <hash>0eef55377da22021f94443d2ed2dc3a7fc65dc18ea9316108a625d6eb3ada96d</hash>
       </entry>
       <entry>
-         <file>mcc_generated_files/src/cpuint.c</file>
-         <hash>f9b05fddddeabf0ade976e485b8adaddad2516e86dfa428741fd8ea920e07f2f</hash>
-      </entry>
-      <entry>
-         <file>mcc_generated_files/utils/assembler/iar.h</file>
-         <hash>02efe91f6b4b8b31e5d6141c604f6f918f641f26433ffc12de9de3106df36a2e</hash>
-      </entry>
-      <entry>
-         <file>mcc_generated_files/src/spi0.c</file>
-         <hash>b6dcc9776239949d23cd854f184323b937399cab6df3c5037dfe18e2dc241bca</hash>
-      </entry>
-      <entry>
-         <file>mcc_generated_files/utils/compiler.h</file>
-         <hash>3f2d7b47b12f2ecbd4c3971644ea7ecd10d2562fc8605a4495bd597eb0f59750</hash>
-      </entry>
-      <entry>
-         <file>mcc_generated_files/include/cpuint.h</file>
-         <hash>802591ef9a8f76d82a9ebdd96dac4c62c9a3c56d991188efaebd5ec3ca4228e2</hash>
-      </entry>
-      <entry>
-         <file>mcc_generated_files/include/port.h</file>
-         <hash>ec36cbe1b794a19f6f116963b634f9609ffb79e1169a46faa7849485e9817c9c</hash>
-      </entry>
-      <entry>
-         <file>mcc_generated_files/utils/interrupt_avr8.h</file>
-         <hash>98adc596175f2e76d4d918685cf050032a3efb605901edb6be0a35dda05a57e9</hash>
-      </entry>
-      <entry>
-         <file>mcc_generated_files/include/tca0.h</file>
-         <hash>9348df821279b8b3f1bbcde896ba008aedeb8dbc7ba016b66dd5d28be4ca8484</hash>
-      </entry>
-      <entry>
-         <file>mcc_generated_files/src/protected_io.S</file>
-         <hash>69d7d2c54bccf38027e4950b66dadc2d9c0be7a2523ffbe4648ec79e87f33522</hash>
-      </entry>
-      <entry>
-         <file>mcc_generated_files/mcc.h</file>
-         <hash>d8d52dcbe243866f993694fbb4aea98fc97cce781dd45ae5f0cc3c6a56f6f0b8</hash>
-      </entry>
-      <entry>
-         <file>mcc_generated_files/mcc.c</file>
-         <hash>7af99ddfb08e7f528d030bcdaa1e47e9e666976911e24713f01a9c619b3c91ae</hash>
-      </entry>
-      <entry>
-         <file>mcc_generated_files/utils/utils.h</file>
-         <hash>38ff19ccdabdd432c321983f3c9190d1767c6e2ac0dc1bba384fc36c62989559</hash>
-      </entry>
-      <entry>
-         <file>mcc_generated_files/include/pin_manager.h</file>
-         <hash>c40ea8dc6685763c78f73c1dfa52ac1e522aeadf5a7da5fd6bf7b97f1cf54889</hash>
-      </entry>
-      <entry>
-         <file>mcc_generated_files/utils/utils_assert.h</file>
-         <hash>002db199835943a5e634d5e9904119d0f50eb94af5300454791a93c81c5353b7</hash>
-      </entry>
-      <entry>
-         <file>mcc_generated_files/utils/assembler/gas.h</file>
-         <hash>6fac20a6e59d9458cc34007cdb9727d244bdc11df5fe1b3b6d17948ab26809c3</hash>
-      </entry>
-      <entry>
-         <file>main.c</file>
-         <hash>ad6433d2c98b42e7128f2ebaca15eb375df8a83f923bb0a884d7b0373577396a</hash>
+         <file>mcc_generated_files/device_config.c</file>
+         <hash>5906ab1e2ca5d80ed4d4d5c57ddd23a674e311f264599052a6ae5ebe231c469c</hash>
       </entry>
       <entry>
          <file>mcc_generated_files/include/ccp.h</file>
          <hash>60059cb974788916ec20d13197b009f4436b347f7eed014aa44aaebf6c516ff1</hash>
       </entry>
       <entry>
-         <file>mcc_generated_files/utils/assembler.h</file>
-         <hash>90b346ff1c59de9e2d44827ebdb0d696965fdfc8a741bc69a880a8ebc2bf61cc</hash>
-      </entry>
-      <entry>
-         <file>mcc_generated_files/include/rstctrl.h</file>
-         <hash>3aaf94dcc7f4f51ce811c4b290f1dbcd29748fb231cb4d3e7f27f49586651c83</hash>
-      </entry>
-      <entry>
-         <file>mcc_generated_files/src/tca0.c</file>
-         <hash>b2fea6f8f5a65add615d51d08e909306b6d5d56af88983ffd6eb99f459aa16b9</hash>
+         <file>mcc_generated_files/include/cpuint.h</file>
+         <hash>802591ef9a8f76d82a9ebdd96dac4c62c9a3c56d991188efaebd5ec3ca4228e2</hash>
       </entry>
       <entry>
          <file>mcc_generated_files/include/nvmctrl.h</file>
          <hash>7bbb67653acf152b640e6c63efee35bde92590c89afeef6ea38b50e779b31af1</hash>
       </entry>
       <entry>
-         <file>mcc_generated_files/include/spi0.h</file>
-         <hash>2865d39630d3558c86c10f22ded36fa5295e05df9d0e46027cae6e5b59c92f8b</hash>
+         <file>mcc_generated_files/include/pin_manager.h</file>
+         <hash>c40ea8dc6685763c78f73c1dfa52ac1e522aeadf5a7da5fd6bf7b97f1cf54889</hash>
       </entry>
       <entry>
-         <file>mcc_generated_files/src/nvmctrl.c</file>
-         <hash>a2587dcc0ca8bf93d0e7626d02baf1de220f7b55d659c5639098a5355f0f265a</hash>
-      </entry>
-      <entry>
-         <file>mcc_generated_files/device_config.c</file>
-         <hash>5906ab1e2ca5d80ed4d4d5c57ddd23a674e311f264599052a6ae5ebe231c469c</hash>
+         <file>mcc_generated_files/include/port.h</file>
+         <hash>ec36cbe1b794a19f6f116963b634f9609ffb79e1169a46faa7849485e9817c9c</hash>
       </entry>
       <entry>
          <file>mcc_generated_files/include/protected_io.h</file>
          <hash>1dd02ce5af5c0f4624172e0ef0bb52d6c8bacb87beabf9d7129d684def52db23</hash>
       </entry>
       <entry>
+         <file>mcc_generated_files/include/rstctrl.h</file>
+         <hash>3aaf94dcc7f4f51ce811c4b290f1dbcd29748fb231cb4d3e7f27f49586651c83</hash>
+      </entry>
+      <entry>
+         <file>mcc_generated_files/include/spi0.h</file>
+         <hash>2865d39630d3558c86c10f22ded36fa5295e05df9d0e46027cae6e5b59c92f8b</hash>
+      </entry>
+      <entry>
+         <file>mcc_generated_files/include/tca0.h</file>
+         <hash>9348df821279b8b3f1bbcde896ba008aedeb8dbc7ba016b66dd5d28be4ca8484</hash>
+      </entry>
+      <entry>
+         <file>mcc_generated_files/include/tcb0.h</file>
+         <hash>59ed938cc0d2eee893301294a7eeda268785c0ed9ac805fe008a016dc94c9f76</hash>
+      </entry>
+      <entry>
+         <file>mcc_generated_files/mcc.c</file>
+         <hash>75ca1ae8c205d52a27ef5232620292e669113c618d164b94fa1e37f881b41b2c</hash>
+      </entry>
+      <entry>
+         <file>mcc_generated_files/mcc.h</file>
+         <hash>74496065173b049897ed5734a23d2c2767c09b3363a8209cd99efdd1d5905e55</hash>
+      </entry>
+      <entry>
+         <file>mcc_generated_files/src/cpuint.c</file>
+         <hash>f9b05fddddeabf0ade976e485b8adaddad2516e86dfa428741fd8ea920e07f2f</hash>
+      </entry>
+      <entry>
+         <file>mcc_generated_files/src/nvmctrl.c</file>
+         <hash>a2587dcc0ca8bf93d0e7626d02baf1de220f7b55d659c5639098a5355f0f265a</hash>
+      </entry>
+      <entry>
+         <file>mcc_generated_files/src/pin_manager.c</file>
+         <hash>b1575f2a488abdcda2c5298b621b1abafd80d219d62b77c96f2562de3a76997c</hash>
+      </entry>
+      <entry>
+         <file>mcc_generated_files/src/protected_io.S</file>
+         <hash>69d7d2c54bccf38027e4950b66dadc2d9c0be7a2523ffbe4648ec79e87f33522</hash>
+      </entry>
+      <entry>
+         <file>mcc_generated_files/src/spi0.c</file>
+         <hash>b6dcc9776239949d23cd854f184323b937399cab6df3c5037dfe18e2dc241bca</hash>
+      </entry>
+      <entry>
+         <file>mcc_generated_files/src/tca0.c</file>
+         <hash>b2fea6f8f5a65add615d51d08e909306b6d5d56af88983ffd6eb99f459aa16b9</hash>
+      </entry>
+      <entry>
+         <file>mcc_generated_files/src/tcb0.c</file>
+         <hash>7b29dc8df63d7447ef4e27ad3d83df07172d9235380badc18fe616839b969cf6</hash>
+      </entry>
+      <entry>
+         <file>mcc_generated_files/utils/assembler.h</file>
+         <hash>90b346ff1c59de9e2d44827ebdb0d696965fdfc8a741bc69a880a8ebc2bf61cc</hash>
+      </entry>
+      <entry>
+         <file>mcc_generated_files/utils/assembler/gas.h</file>
+         <hash>6fac20a6e59d9458cc34007cdb9727d244bdc11df5fe1b3b6d17948ab26809c3</hash>
+      </entry>
+      <entry>
+         <file>mcc_generated_files/utils/assembler/iar.h</file>
+         <hash>02efe91f6b4b8b31e5d6141c604f6f918f641f26433ffc12de9de3106df36a2e</hash>
+      </entry>
+      <entry>
          <file>mcc_generated_files/utils/atomic.h</file>
          <hash>80e018fe02cd0c54394bb9a54dcf927d346410567dc6dded62bea9b49e322acf</hash>
+      </entry>
+      <entry>
+         <file>mcc_generated_files/utils/compiler.h</file>
+         <hash>3f2d7b47b12f2ecbd4c3971644ea7ecd10d2562fc8605a4495bd597eb0f59750</hash>
+      </entry>
+      <entry>
+         <file>mcc_generated_files/utils/interrupt_avr8.h</file>
+         <hash>98adc596175f2e76d4d918685cf050032a3efb605901edb6be0a35dda05a57e9</hash>
+      </entry>
+      <entry>
+         <file>mcc_generated_files/utils/utils.h</file>
+         <hash>38ff19ccdabdd432c321983f3c9190d1767c6e2ac0dc1bba384fc36c62989559</hash>
+      </entry>
+      <entry>
+         <file>mcc_generated_files/utils/utils_assert.h</file>
+         <hash>002db199835943a5e634d5e9904119d0f50eb94af5300454791a93c81c5353b7</hash>
       </entry>
    </generatedFileHashHistoryMap>
 </config>

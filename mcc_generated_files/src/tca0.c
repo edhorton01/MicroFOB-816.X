@@ -69,7 +69,7 @@ void TCA0_DefaultOVFIsrCallback(void)
     asm ("nop");
     asm ("nop");
     TCA0_ClearOverflowInterruptFlag();
-    IO_PC2_TP2_Toggle();      // TP2
+//    IO_PC2_TP2_Toggle();      // TP2
     IntStatus._tc0 = 1;
     if(TimerD._active)
     {
